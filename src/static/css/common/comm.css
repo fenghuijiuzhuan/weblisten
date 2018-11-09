@@ -1,18 +1,10 @@
 @charset "utf-8";
 
 /* comm */
-<<<<<<< HEAD
-body{background-color: #EcF0F5}
-.wping-auto{width: 1000px;margin-left: auto;margin-right: auto;min-width: 1000px}
-
-/* header module start */
-.wping-header{background-color: #094AAA;padding: 0 30px}
-=======
 /* .wping-auto{width: 1000px;margin-left: auto;margin-right: auto;min-width: 1000px} */
 
 /* header module start */
 .wping-header{background-color: #094AAA;padding: 0 30px;position: relative;z-index: 1001;}
->>>>>>> 更新
 .wping-logo{line-height: 70px;}
 .wping-logo img{margin-right: 20px;margin-top: 10px}
 .wping-header .layui-nav{background-color: transparent;margin-top: 10px}
@@ -21,11 +13,8 @@ body{background-color: #EcF0F5}
 .layui-nav .layui-this:after,.layui-nav-bar{background-color: #FFFFFF}
 .layui-nav .layui-nav-child dd.layui-this a, .layui-nav-child dd.layui-this{background-color: transparent}
 .layui-nav-child{top: 70px}
-<<<<<<< HEAD
-=======
 .wping-header .layui-nav .layui-nav-item.layui-this{background-color: #FFF;color: #094AAA;border-radius: 10px 10px 0 0;}
 .wping-header .layui-nav .layui-nav-item.layui-this a{color: #094AAA;}
->>>>>>> 更新
 /* header module end */
 /* menu start */
 .layui-side{top: 70px;border-right: 1px solid #ddd;border-top: 1px solid #ddd;}
@@ -33,13 +22,8 @@ body{background-color: #EcF0F5}
 .wping-menu .layui-nav .layui-nav-item a{color: #094AAA;font-weight: bold;font-size: 16px}
 .wping-menu .layui-nav-itemed>a{color: #094AAA!important;font-weight: bold;font-size: 16px}
 .wping-menu .layui-nav .layui-nav-item .layui-nav-child a{font-size: 14px;color: #333;font-weight: normal}
-<<<<<<< HEAD
-.layui-nav-itemed>a .layui-nav-more{border-bottom-color: #094AAA}
-.layui-nav .layui-nav-more{border-top-color: #C1C1C1}
-=======
 .wping-menu .layui-nav-itemed>a .layui-nav-more{border-bottom-color: #094AAA;border-top-color: transparent}
 .wping-menu .layui-nav .layui-nav-more{border-top-color: #C1C1C1}
->>>>>>> 更新
 .wping-menu .layui-nav-item{border: 1px solid #ddd;border-top: none}
 .layui-nav-tree .layui-nav-item a:hover{background-color: #EEE}
 .layui-nav-tree .layui-nav-bar{background-color: #094AAA}
@@ -49,9 +33,6 @@ body{background-color: #EcF0F5}
 .layui-nav-tree .layui-nav-child dd.layui-this{background-color: #094AAA;color: #FFF}
 .layui-nav-tree .layui-nav-child dd.layui-this a,.layui-nav-tree .layui-nav-child dd.layui-this i{color: #FFF!important}
 .layui-nav .layui-nav-item .layui-nav-child dd.layui-nav-itemed{}
-<<<<<<< HEAD
-/* menu end */
-=======
 /* menu end */
 /* main start */
 .wping-body{position: fixed;top: 70px;bottom: 60px;background-color: #EcF0F5;}
@@ -67,4 +48,3 @@ body{background-color: #EcF0F5}
 /* footer start */
 .wping-footer{position: fixed;bottom: 0;left: 0;right: 0;background-color: #FFFFFF;height: 50px;padding: 5px 0;z-index: 1000;border-top: 1px solid #DDDDDD;line-height: 24px}
 /* footer end */
->>>>>>> 更新
