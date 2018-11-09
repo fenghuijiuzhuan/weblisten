@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <base href="http://127.0.0.1:5500/work/20181109web/20181109web-listener/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="src/static/css/common/base.css">
+  <link rel="stylesheet" href="frame/layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="src/static/css/common/comm.css">
+  <link rel="stylesheet" type="text/css" href="src/static/font/iconfont.css">
+  <script src="frame/layui/layui.js"></script>
+
+</head>
+<body>
+  <!-- header start -->   
+  <div class="wping-header clearfix">
+    <a href="#">
+      <div class="wping-logo pull-left gfff fsize20 fweight">
+        <img src="https://res.layui.com/static/images/layui/logo.png" class="pull-left" alt="" width="100" height="50">
+        河南省政府网站统一技术平台
+      </div>
+    </a>
+    <ul class="layui-nav pull-left" lay-filter="">
+      <li class="layui-nav-item layui-this"><a href="">首页</a></li>
+      <li class="layui-nav-item"><a href="">考核评分</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+          <dd><a href="">单项否决</a></dd>
+          <dd><a href="">综合评分</a></dd>
+        </dl>
+      </li>
+    </ul>
+    <ul class="layui-nav pull-right">
+      <li class="layui-nav-item">
+        <a href=""><img src="http://iconfont.alicdn.com/t/1492824790092.jpg@100h_100w.jpg" class="layui-nav-img">我</a>
+        <dl class="layui-nav-child">
+          <dd><a href="javascript:;">修改信息</a></dd>
+          <dd><a href="javascript:;">安全管理</a></dd>
+          <dd><a href="javascript:;">退了</a></dd>
+        </dl>
+      </li>
+    </ul>
+  </div>
+  <!-- header end -->
+  <!-- menu start -->
+  <div class="wping-menu layui-side">
+      <div class="layui-side-scroll">
+        <ul class="layui-nav layui-nav-tree" lay-filter="test">
+          <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+          <li class="layui-nav-item layui-nav-itemed">
+            <a href="javascript:;">河南省政府办公厅</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;"><i class="layui-icon layui-icon-triangle-r" style="color: #094AAA;opacity: 0;"></i>&nbsp;<i class="layui-icon layui-icon-file" style="color: #094AAA;"></i>&nbsp;选项1</a></dd>
+              <dd><a href="javascript:;"><i class="layui-icon layui-icon-triangle-r" style="color: #094AAA;"></i>&nbsp;<i class="icon-font icon-weibiaoti5" style="color: #094AAA;"></i>&nbsp;选项2</a>
+                <dl class="layui-nav-child">
+                  <dd><a href="javascript:;"><i class="layui-icon layui-icon-triangle-r" style="color: #094AAA;opacity: 0;"></i>&nbsp;<i class="layui-icon layui-icon-file" style="color: #094AAA;"></i>&nbsp;选项1</a></dd>
+                  <dd><a href="javascript:;"><i class="layui-icon layui-icon-triangle-r" style="color: #094AAA;"></i>&nbsp;<i class="layui-icon layui-icon-file" style="color: #094AAA;"></i>&nbsp;选项2</a>
+                    <dl class="layui-nav-child">
+                      <dd><a href="javascript:;"><i class="layui-icon layui-icon-triangle-r" style="color: #094AAA;opacity: 0;"></i>&nbsp;<i class="layui-icon layui-icon-file" style="color: #094AAA;"></i>&nbsp;选项1</a></dd>
+                      <dd><a href="javascript:;"><i class="layui-icon layui-icon-triangle-r" style="color: #094AAA;opacity: 0;"></i>&nbsp;<i class="layui-icon layui-icon-file" style="color: #094AAA;"></i>&nbsp;选项2</a></dd>
+                    </dl>
+                  </dd>
+                </dl>
+              </dd>
+            </dl>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <!-- menu end -->
+
+  <script>
+  //注意：导航 依赖 element 模块，否则无法进行功能性操作
+  layui.use('element', function(){
+    var element = layui.element;
+  });
+  </script>
+</body>
+</html>
