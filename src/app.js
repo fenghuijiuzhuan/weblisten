@@ -1,17 +1,19 @@
 require(['src/config/require.config.js'], function () {
-  require(['header', 'menu', 'footer', 'body', 'bread'], function (header, menu, footer, body, bread) {
+  require(['header', 'menu', 'footer', 'body', 'bread', 'search'], function (header, menu, footer, body, bread, search) {
     // header
     header.create($('body'))
     
     // menu
-    
     menu.create($('body'))
+
     // footer
     var footer1 = '版权所有：河南省人民政府办公厅',
         footer2 = '技术支持：睿软科技';
     footer.create($('body'), footer1, footer2)
+
     // main body
     var bod = body.create().appendTo($('body')).eq(1);
+    var main = bod.find('.wping-bodymain')
     
     // bread
     var btnAggr = [
@@ -26,6 +28,10 @@ require(['src/config/require.config.js'], function () {
       {name: 'RELOAD', text: ''}
     ]
     bread.create(bod, [{title: '全媒体采编',}, {title: '已签发平台',}], btnAggr)
+
+    // search-from
+    search.create(main)
+
 
   });
 })

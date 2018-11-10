@@ -4,7 +4,7 @@ define(['btn_aggr',], function(getBtn) {
     require(['text!tpl/bread.js'], function (html) {
       var btnHtml = '';
       if(btn) for(var i = 0, _i = btn.length; i < _i; i ++) {
-        btnHtml += getBtn(btn[i]['name'], btn[i]['text']);
+        btnHtml += getBtn(btn[i]);
       }
       var btnAggr = ['<!-- 按钮组 --><div class="wping-btn-aggr pull-right layui-btn-group">', btnHtml, '</div>'].join('');
 
