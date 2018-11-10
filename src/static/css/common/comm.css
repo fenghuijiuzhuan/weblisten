@@ -17,7 +17,7 @@
 .wping-header .layui-nav .layui-nav-item.layui-this a{color: #094AAA;}
 /* header module end */
 /* menu start */
-.layui-side{top: 70px;border-right: 1px solid #ddd;border-top: 1px solid #ddd;}
+.layui-side{top: 70px;bottom: 60px;border-right: 1px solid #ddd;border-top: 1px solid #ddd;}
 .wping-menu .layui-nav{background-color: #FFF}
 .wping-menu .layui-nav .layui-nav-item a{color: #094AAA;font-weight: bold;font-size: 16px}
 .wping-menu .layui-nav-itemed>a{color: #094AAA!important;font-weight: bold;font-size: 16px}
@@ -36,7 +36,7 @@
 /* menu end */
 /* main start */
 .wping-body{position: fixed;top: 70px;bottom: 60px;background-color: #EcF0F5;}
-.wping-bodymain{}
+.wping-bodymain{margin-left: 30px;}
 /* main end */
 /* breadcrumb start */
 .wping-breadcrumb{height: 45px;line-height: 45px;background-color: #FFFFFF;padding: 0 20px;}
