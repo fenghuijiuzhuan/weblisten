@@ -1,9 +1,10 @@
 define([], function() {
   'use strict';
-  function body(){
-    var bod = '<div class="layui-body wping-body"><div class="wping-bodymain"></div></div>'
+  function body(iframe){
+    var child = iframe ? '' : '<div class="wping-bodymain"><div class="wping-bodycontent"></div></div>';
+    var bod = '<div class="layui-body wping-body">'+ child +'</div>'
     var html = '<!-- main start -->'+bod+'<!-- main end -->';
-    return $(html)
+    return  $(html)
   }
   return {
     create: body

@@ -1,0 +1,21 @@
+{
+	"code": 0,   
+	"msg": "",
+	"count": 3,  
+	"data": [{
+		"id": "1",
+		"ipagesd": "首页",
+		"noconlink": "2",
+		"dfscore": "-2"
+	},{
+		"id": "2",
+		"ipagesd": "其他页面",
+		"noconlink": "1",
+		"dfscore": "-0.1"
+	},{
+		"id": "3",
+		"ipagesd": "总计",
+		"noconlink": "3",
+		"dfscore": "-2.1"
+	}]
+}

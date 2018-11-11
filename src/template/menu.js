@@ -5,12 +5,12 @@
     <!-- 第1级  -->
     {{#  layui.each(d.list, function(index, item){ }}
       <li class="layui-nav-item {{ index==0?'layui-nav-itemed':'' }}">
-        <a href="javascript:;">{{ item.text }}</a>
+        <a href="{{ item.src }}">{{ item.text }}</a>
         {{#  if(item.children.length !== 0){ }}
         <dl class="layui-nav-child">
         {{#  layui.each(item.children, function(index_1, item_1){ }}
           <dd class="{{ index==0 && item_1.children.length  ?'layui-nav-itemed':'' }}">
-            <a href="javascript:;">
+            <a href="{{ item_1.src }}">
               <i class="layui-icon layui-icon-triangle-r" style="color: #094AAA;{{ item_1.children.length ===0 && 'opacity: 0;' }}"></i>
               &nbsp;
               <i class="iconfont {{ item_1.children.length === 0 ? 'icon-wenjian': 'icon-wenjianjia' }}" style="color: #094AAA;"></i>
@@ -22,7 +22,7 @@
             <dl class="layui-nav-child">
             {{#  layui.each(item_1.children, function(index_2, item_2){ }}
               <dd class="{{ index==0 && item_2.children.length  ?'layui-nav-itemed':'' }}">
-                <a href="javascript:;">
+                <a href="{{ item_2.src }}">
                   <i class="layui-icon layui-icon-triangle-r" style="color: #094AAA;{{ item_2.children.length ===0 && 'opacity: 0;' }}"></i>
                   &nbsp;
                   <i class="iconfont {{ item_2.children.length === 0 ? 'icon-wenjian': 'icon-wenjianjia' }}" style="color: #094AAA;"></i>
@@ -35,7 +35,7 @@
                 <dl class="layui-nav-child">
                 {{#  layui.each(item_2.children, function(index_3, item_3){ }}
                   <dd class="{{ index==0 && item_3.children.length !== 0  ?'layui-nav-itemed':'' }}">
-                    <a href="javascript:;">
+                    <a href="{{ item_3.src }}">
                       <i class="layui-icon layui-icon-triangle-r" style="color: #094AAA;{{ item_3.children.length ===0 && 'opacity: 0;' }}"></i>
                       &nbsp;
                       <i class="iconfont {{ item_3.children.length === 0 ? 'icon-wenjian': 'icon-wenjianjia' }}" style="color: #094AAA;"></i>
@@ -48,7 +48,7 @@
                     <dl class="layui-nav-child">
                     {{#  layui.each(item_3.children, function(index_4, item_4){ }}
                       <dd class="{{ index==0 && item_4.children.length !== 0  ?'layui-nav-itemed':'' }}">
-                        <a href="javascript:;">
+                        <a href="{{ item_4.src }}">
                           <i class="layui-icon layui-icon-triangle-r" style="color: #094AAA;{{ item_4.children.length ===0 && 'opacity: 0;' }}"></i>
                           &nbsp;
                           <i class="iconfont {{ item_4.children.length === 0 ? 'icon-wenjian': 'icon-wenjianjia' }}" style="color: #094AAA;"></i>

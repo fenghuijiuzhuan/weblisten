@@ -1,0 +1,30 @@
+@charset "utf-8";
+/**
+ *@Author GYF
+ */
+ body{min-width: 1040px}
+.wping-index{left: 0;bottom: 0;margin: auto;padding: 0 40px;height: 55%;min-height: 600px;min-width: 1040px;overflow: auto;max-height: 800px}
+/* left */
+.wping-index .web-info{width: 30%;padding-right: 5%;min-width: 400px;max-width: 500px;height: 100%;}
+.wping-index .web-info .name{font-size: 20px;margin-bottom: 20px}
+.wping-index .web-info .name span{font-weight: bold;font-size: 26px;color: #094AAA}
+.wping-index .web-info .domain{font-size: 16px;margin-bottom: 50px;}
+.wping-index .web-info .domain a{color: #094AAA}
+.wping-index .web-info .name i, .wping-index .web-info .domain i{margin-right: 5px}
+.wping-details-row{border-bottom: 1px solid #ddd;padding: 10px 0;font-size: 20px;color: #333333;}
+.wping-details-row:last-child{border: none}
+.wping-details-row .wping-details-label{width: 170px;text-align: right;float: left;line-height: 30px}
+.wping-details-row .wping-details-block{float: left;line-height: 20px;width: 230px;}
+.wping-details-row .wping-status-i{color: #ffffff;padding: 5px 15px;font-weight: bold;border-radius: 5px;background-color: #094AAA}
+.wping-details-row .wping-status-i.waring{background-color: #Fb3F00;vertical-align: middle}
+.wping-details-row .layui-icon{font-size: 30px;vertical-align: middle;}
+.wping-details-row .wping-details-block{color: #666;font-size: 16px}
+.wping-details-row .wping-details-block a:hover{color: #094AAA}
+.wping-details-row .wping-details-block p{margin-top: 10px;line-height: 26px}
+/* right */
+.wping-index .web-entry{font-size: 0;width: 50%;min-width: 400px;overflow: hidden;display: inline-block}
+.wping-index .web-entry .layui-card-body{text-align: center}
+.wping-index .web-entry .layui-card{margin: 0}
+.wping-indexentry-item{display: inline-block;font-size: 24px;margin: 0 3%;color: #094AAA;position: relative;}
+.wping-indexentry-item p{font-size: 16px;color: #666;}
+.wping-index .web-entry .layui-badge{position: absolute;top: 0;right: 0;border: none;font-size: 16px}

@@ -1,7 +1,7 @@
 require(['src/config/require.config.js'], function () {
-  require(['header', 'menu', 'footer', 'body', 'bread', 'search'], function (header, menu, footer, body, bread, search) {
+  require(['header', 'menu', 'footer', 'body'], function (header, menu, footer, body) {
     // header
-    header.create($('body'))
+    header.create($('body'), {'router': 'kaohe'})
     
     // menu
     menu.create($('body'))
@@ -12,27 +12,8 @@ require(['src/config/require.config.js'], function () {
     footer.create($('body'), footer1, footer2)
 
     // main body
-    var bod = body.create().appendTo($('body')).eq(1);
-    var main = bod.find('.wping-bodymain')
-    
-    // bread
-    var btnAggr = [
-      {name: 'INDEXAGGR', text: '首页组版'},
-      {name: 'ADD', text: '新闻'},
-      {name: 'ADD', text: '文件'},
-      {name: 'ADD', text: '公报'},
-      {name: 'EDIT', text: '编辑平台'},
-      {name: 'WAIT', text: '待审核'},
-      {name: 'WAIT', text: '待签发'},
-      {name: 'DEL', text: '回收站'},
-      {name: 'RELOAD', text: ''}
-    ]
-    bread.create(bod, [{title: '全媒体采编',}, {title: '已签发平台',}], btnAggr)
-
-    // search-from
-    search.create(main)
-
-
+    var bod = body.create('iframe').appendTo($('body'));
+    bod = bod.eq(1).append('<iframe width="100%" height="100%" style="display: block;border: 0" id="wping-body-iframe" src=""></iframe>')
   });
 })
 

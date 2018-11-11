@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <base href="http://127.0.0.1:5500/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="src/static/css/common/base.css">
+  <link rel="stylesheet" href="frame/layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="src/static/css/common/comm.css">
+  <!-- <link rel="stylesheet" type="text/css" href="src/static/font/iconfont.css"> -->
+  <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_912067_7u2s2dvgjf2.css">
+  <script src="lib/require-2.1.11.min.js"></script>
+  <script src="frame/echarts-2.2.7/dist/echarts.js"></script>
+</head>
+<body>
+  <!-- 哎呀 什么都没有 -->
+
+<script>
+require(['src/config/require.config.js'], function () {
+
+  require([
+     'jquery',
+     'layui',
+     'body',
+     'bread',
+     'search',
+     'bodytitle',
+     'panel',
+     'echarts/echarts',
+     'echarts/chart/bar',
+     'echarts/chart/pie',
+    //  '/testdata'
+    ], function ( $1, $2, body, bread, search, bodytitle, panel, ec) {
+    // main body
+    var bod = body.create().appendTo($('body'));
+    bod.eq(1).css({
+      top: 0, 
+      left: 0,
+      bottom: 0
+    })
+    var main = bod.find('.wping-bodymain');
+    var content = bod.find('.wping-bodycontent');
+    
+    var bodyTitleData = {
+      title: '首页可用性'
+    }
+    bodytitle.create(content, bodyTitleData)
+    
+    var zdfwpanelParam = {
+      title: '扣分情况',
+      body: '<div ><p>-1分</p></div>',
+    }
+    panel.create(content, zdfwpanelParam, function(dom){
+    	dom.css({
+    		display: 'inline-block',
+    		'vertical-align': 'top',
+    		width: '30%',
+    		height:'200px'
+    	})
+    })
+    
+     var kcdpanelParam = {
+      title: '考察点',
+      body: '<div><p>首页打不开的次数占全部监测次数的比例。</p></div>',
+    }
+    panel.create(content, kcdpanelParam, function(dom){
+    	dom.css({
+    		display: 'inline-block',
+    		'vertical-align': 'top',
+    		width: '30%',
+    		height:'200px'
+    	})
+    })
+    
+    var kcbzpanelParam = {
+      title: '考核标准',
+      body: '<div><p>监测1周，每天间隔性访问20次以上，累计超过（含）15秒网站仍打不开的次数比例每1%扣5分（累计超过（含）5%的，直接列入单项否决）。</p></div>',
+    }
+    panel.create(content, kcbzpanelParam, function(dom){
+    	dom.css({
+    		display: 'inline-block',
+    		'vertical-align': 'top',
+    		width: '30%',
+    		height:'200px'
+    	})
+    })
+    
+    
+    var panelParam = {
+      title: '监测分析',
+      body: '<div class="main-chart" style="border:2px solid red; width:40%; height:400px; display:inline-block;"><h3>用户访问时长图</h3></div><div style="border:2px solid red;width:47%; height:400px; display:inline-block;" id="main-charts-table"></div>',
+    }
+    panel.create(content, panelParam, function (dom) {
+    	var div = dom.find('.main-chart')
+     	div.height(400);
+      
+    	 var myChart1 = ec.init(div[0]);
+                // 指定图表的配置项和数据
+                var option1 = {
+							    title : {
+							        text: '用户访问时长',
+							      /*  subtext: '纯属虚构',*/
+							        x:'center'
+							    },
+							    tooltip : {
+							        trigger: 'item',
+							        formatter: "{a} <br/>{b} : {c} ({d}%)"
+							    },
+							    legend: {
+							        orient: 'vertical',
+							        left: 'left',
+							        data: ['大于15(s)的访问次数','小于15(s)的访问次数']
+							    },
+							    series : [
+							        {
+							            name: '访问来源',
+							            type: 'pie',
+							            radius : '55%',
+							            center: ['50%', '60%'],
+							            data:[
+							                {value:12, name:'大于15(s)的访问次数'},
+							                {value:160, name:'小于15(s)的访问次数'},							               
+							            ],
+							            itemStyle: {
+							                emphasis: {
+							                    shadowBlur: 10,
+							                    shadowOffsetX:0,
+							                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+							                }
+							            }
+							        }
+    ]
+};
+
+ myChart1.setOption(option1);
+
+      
+        var div2 = dom.find('#main-charts-table');
+    		layui.use('table', function(){
+        var table = layui.table;
+        //第一个实例
+        table.render({
+          elem: div2,
+          height: 290,
+          url: 'testdata/shouyekeyongxing.json', //数据接口
+          page: true, //开启分页
+          cols: [[ //表头
+            {field: 'dycount', title: '大于15s的访问次数', width:"10%"},
+            {field: 'zcount', title: '总访问次数', width:"5%", sort: true},
+            {field: 'yccount', title: '异常比例', width:"5%"},
+            {field: 'kfscore', title: '扣分', width:"5%"} 
+          ]]
+        });
+      });
+    })
+
+
+
+  });
+  
+})
+
+/*最近一周
+ * var div3 = dom.find('#main-charts-table');
+    	layui.use('table', function(){
+        var table = layui.table;
+        
+        //第一个实例
+        table.render({
+          elem: div3,
+          height: 290,
+          url: 'testdata/shouyekeyongxing2.json', //数据接口
+          page: true, //开启分页
+          cols: [[ //表头
+            {field: 'nowdate', title: '日期', width:"10%"},
+            {field: 'dycount', title: '大于15s的访问次数', width:"15%", sort: true},
+            {field: 'zcount', title: '总访问次数', width:"5%"},
+            {field: 'percent', title: '占比', width:"5%"},
+            {field: 'kfscore', title: '扣分', width:"5%"} 
+          ]]
+        });*/
+</script>
+</body>
+</html>

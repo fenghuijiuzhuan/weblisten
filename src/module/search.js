@@ -3,8 +3,8 @@ define(['btn_aggr'], function(getBtn) {
 
   function SearchForm(ele) {
     require(['text!tpl/search.js'], function (html) {
-      var plane = getBtn({name: 'INDEXAGGR', text: '查询'})
-      var defau = getBtn({ text: '新闻', style: 'margin-left: 5px;'})
+      var plane = getBtn({name: 'INDEXAGGR', text: '查询',  color: 'layui-btn-normal'})
+      var defau = getBtn({ text: '只看自己', style: 'margin-left: 5px;', color: 'layui-btn-primary'})
 
       var data = { //数据
         plane: plane,
@@ -14,7 +14,7 @@ define(['btn_aggr'], function(getBtn) {
         var laytpl = layui.laytpl;
         var tpl = laytpl(html);
         tpl.render(data, function(result){
-          ele.append($(result))
+          ele.prepend($(result))
           layui.use('form', function(){
             var form = layui.form;
           })
@@ -22,8 +22,6 @@ define(['btn_aggr'], function(getBtn) {
       })
     })
   }
-
-  
   
   return {
     create: SearchForm

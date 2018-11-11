@@ -17,6 +17,9 @@ define(['btn_aggr',], function(getBtn) {
         var tpl = laytpl(html);
         tpl.render(data, function(result){
           ele.prepend($(result))
+          layui.use('element', function(){
+            var element = layui.element;
+          });
         });
       })
     })

@@ -37,6 +37,7 @@
 /* main start */
 .wping-body{position: fixed;top: 70px;bottom: 60px;background-color: #EcF0F5;}
 .wping-bodymain{margin: 10px 20px;}
+.wping-bodycontent{background-color: #FFFFFF;}
 /* main end */
 /* breadcrumb start */
 .wping-breadcrumb{height: 45px;line-height: 45px;background-color: #FFFFFF;padding: 0 20px;}
@@ -51,4 +52,13 @@
 /* searchfrom start */
 .wping-searchform{background-color: #FFFFFF;padding: 12px 20px;border-left: 4px solid #094AAA;}
 /* search end */
+/* panel start */
+.layui-card{background-color: transparent;margin-left: 20px;margin-right: 20px}
+.layui-card-header{background-color: #094AAA;border-radius: 10px 10px 0 0;color: #FFF;font-size: 20px}
+
+/* panel end */
+/* bodytitle start */
+.wping-bodytitle{border-bottom: 1px solid #ddd;padding: 20px 0;background-color: transparent;}
+.wping-bodytitle .layui-card-header{font-size: 22px;color: #094AAA;border-bottom: none;background-color: transparent;}
+/* bodytitle end */
 

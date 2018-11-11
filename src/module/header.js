@@ -1,9 +1,8 @@
 define([], function() {
   function header(ele, data) {
     require(['text!tpl/header.js'], function (html) {
-      var data = { //数据
-
-      };
+      data = $.extend({router: ''}, data)
+      // data = data;
       layui.use('laytpl', function(){
         var laytpl = layui.laytpl;
         var tpl = laytpl(html);
