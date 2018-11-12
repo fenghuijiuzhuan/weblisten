@@ -8,10 +8,9 @@ define([], function() {
       layui.use('laytpl', function(){
         var laytpl = layui.laytpl;
         var tpl = laytpl(html);
-        tpl.render(data, function(result){
-          ele.append($(result))
-          callback&&callback()
-        });
+        var result = tpl.render(data);
+        ele.append($(result))
+        callback&&callback()
       })
 
     })

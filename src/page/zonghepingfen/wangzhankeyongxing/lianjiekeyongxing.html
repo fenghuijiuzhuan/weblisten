@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <base href="http://127.0.0.1:5500/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="src/static/css/common/base.css">
+  <link rel="stylesheet" href="frame/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="src/static/css/common/comm.css">
+  <!-- <link rel="stylesheet" type="text/css" href="src/static/font/iconfont.css"> -->
+  <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_912067_7u2s2dvgjf2.css">
+  <script src="lib/require-2.1.11.min.js"></script>
+  <script src="frame/echarts-2.2.7/dist/echarts.js"></script>
+</head>
+
+<body>
+		<!-- 哎呀 什么都没有 -->
+
+<script>
+  require(['src/config/require.config.js'], function() {
+
+    require([
+      'jquery',
+      'layui',
+      'body',
+      'bread',
+      'search',
+      'bodytitle',
+      'panel',
+      'echarts/echarts',
+      'echarts/chart/bar',
+      'echarts/chart/pie',
+      //  '/testdata'
+    ], function($1, $2, body, bread, search, bodytitle, panel, ec) {
+      // main body
+      var bod = body.create().appendTo($('body'));
+      bod.eq(1).css({
+        top: 0,
+        left: 0,
+        bottom: 0
+      })
+      var main = bod.find('.wping-bodymain');
+      var content = bod.find('.wping-bodycontent');
+
+      var bodyTitleData = {
+        title: '链接可用性'
+      }
+      bodytitle.create(content, bodyTitleData)
+
+      var zdfwpanelParam = {
+        title: '扣分情况',
+        body: '<div ><p>-2.1分</p></div>',
+      }
+      panel.create(content, zdfwpanelParam, function(dom) {
+        dom.css({
+          display: 'inline-block',
+          'vertical-align': 'top',
+          width: '30%',
+          height: '200px'
+        })
+      })
+
+      var kcdpanelParam = {
+        title: '考察点',
+        body: '<div><p>首页及其他页面不能正常访问的链接数量。</p></div>',
+      }
+      panel.create(content, kcdpanelParam, function(dom) {
+        dom.css({
+          display: 'inline-block',
+          'vertical-align': 'top',
+          width: '30%',
+          height: '200px'
+        })
+      })
+
+      var kcbzpanelParam = {
+        title: '考核标准',
+        body: '<div><p>1.首页上的链接（包括图片、附件、外部链接等），每发现一个打不开或错误的，扣1分；如首页仅为网站栏目导航入口，则检查所有二级页面上的链接。<br/>2.其他页面的链接（包括图片、附件、外部链接等），每发现一个打不开或错误的，扣0.1分。</p></div>',
+      }
+      panel.create(content, kcbzpanelParam, function(dom) {
+        dom.css({
+          display: 'inline-block',
+          'vertical-align': 'top',
+          width: '30%',
+          height: '200px'
+        })
+      })
+
+      var panelParam = {
+        title: '扣分情况分析',
+        body: '<div><div id="main-chart" style=" width:40%; height:400px; display:inline-block;"><h3>用户访问时长图</h3></div><div style="width:47%; height:400px; display:inline-block;vertical-align: top;" id="main-charts-table"><div></div></div></div>',
+      }
+      panel.create(content, panelParam, function(dom) {
+        var div = dom.find("#main-chart")[0]
+
+        var myChart1 = ec.init(div);
+        // 指定图表的配置项和数据
+        var option1 = {
+          title: {
+            text: '用户访问时长',
+            /*  subtext: '纯属虚构',*/
+            x: 'left'
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+          },
+          legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['其他页面', '首页']
+          },
+          series: [{
+            name: '访问来源',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            data: [{
+              value: 2,
+              name: '其他页面'
+            }, {
+              value: 3,
+              name: '首页'
+            }, ],
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }]
+        };
+
+        myChart1.setOption(option1);
+
+        var div2 = dom.find("#main-charts-table div")[0];
+        layui.use('table', function() {
+          var table = layui.table;
+          //第一个实例
+          table.render({
+            elem: div2,
+            url: '/testdata/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing2.json', //数据接口
+            height: 400,
+            cols: [
+              [ //表头
+                {field: 'id',title: '序号',width: "10%"}, 
+                {field: 'ipagesd',title: '页面',width: "30%"}, 
+                {field: 'noconlink',title: '链接不可用数',width: "30%",sort: true}, 
+                {field: 'dfscore',title: '扣分',width: ""}
+              ]
+            ]
+          });
+        })
+      })
+      
+      
+      var panelParam = {
+        body: '<div id="sy"><div>标题</div></div><div id="qtym"><div>标题</div></div>',
+      }
+      panel.create(content, panelParam, function(dom) {
+        var div3 = dom.find("#sy div")[0]
+        layui.use('table', function() {
+          var table = layui.table;
+          //第一个实例
+          table.render({
+            elem: div3,
+            height: 290,
+            title: '其他页面错误链接列表',
+            url: '/testdata/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing.json', //数据接口
+            page: true, //开启分页
+            cols: [
+              [ //表头序号、更新时间、标题、
+                {field: 'id',title: '序号',width: "5%"}, 
+                {field: 'updatetime',title: '更新时间',width: "10%",sort: true}, 
+                {field: 'type',title: '所属栏目', width: "15%"}, 
+                {field: 'title',title: '标题',width: ""}
+              ]
+            ]
+          });
+        })
+  
+        var div4 = dom.find("#qtym div")[0]
+        layui.use('table', function() {
+          var table = layui.table;
+          //第一个实例
+          table.render({
+            elem: div4,
+            height: 290,
+            title: '其他页面错误链接列表',
+            url: '/testdata/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing2.json', //数据接口
+            page: true, //开启分页
+            cols: [
+              [ //表头序号、更新时间、标题、
+                {field: 'id',title: '序号',width: "5%"}, 
+                {field: 'updatetime',title: '更新时间',width: "10%",sort: true}, 
+                {field: 'type', title: '所属栏目',width: "15%"}, 
+                {field: 'title',title: '标题', width: ""}
+              ]
+            ]
+          });
+        })
+      })
+    });
+
+  })
+
+</script>
+	</body>
+
+</html>

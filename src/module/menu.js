@@ -6,13 +6,15 @@ define(['util/onloadpage'], function(loadpage) {
       layui.use('laytpl', function(){
         var laytpl = layui.laytpl;
         var tpl = laytpl(html);
-        tpl.render(data, function(result){
+        var result = tpl.render(data);
+        resultNext(result);
+        function resultNext(result){
           var dom = $(result).appendTo(ele);
           dom.eq(2).find('a').on('click', function (e) {
             loadpage(this.href)
             return false;
           })
-        });
+        }
       })
     })
   }
@@ -26,22 +28,22 @@ define(['util/onloadpage'], function(loadpage) {
         children: [
           {
             text: '站点访问',
-            src: '/src/page/zhandianfangwen.html',
+            src: '/src/page/danxiangfoujue/zhandianfangwen.html',
             children: []
           },
           {
             text: '首页更新',
-            src: '/src/page/shouyegengxin.html',
+            src: '/src/page/danxiangfoujue/shouyegengxin.html',
             children: []
           },
           {
             text: '栏目更新',
-            src: 'javascript:;',
+            src: '/src/page/danxiangfoujue/lanmugengxin.html',
             children: []
           },
           {
             text: '互动回应',
-            src: 'javascript:;',
+            src: '/src/page/danxiangfoujue/hudonghuiying.html',
             children: []
           }
         ]
@@ -56,11 +58,11 @@ define(['util/onloadpage'], function(loadpage) {
             children: [
               {
                 text: '首页可用性',
-                src: '/src/page/shouyekeyongxing.html',
+                src: '/src/page/zonghepingfen/wangzhankeyongxing/shouyekeyongxing.html',
                 children: []
               }, {
                 text: '链接可用性',
-                src: '/src/page/lianjiekeyongxing.html',
+                src: '/src/page/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing.html',
                 children: []
               }
             ]
@@ -84,15 +86,15 @@ define(['util/onloadpage'], function(loadpage) {
             children: [
               {
                 text: '互动访谈',
-                src: 'javascript:;',
+                src: '/src/page/zonghepingfen/hudonghuiyingqingkuang/hudongfangtan.html',
                 children: []
               }, {
                 text: '政务咨询',
-                src: 'javascript:;',
+                src: '/src/page/zonghepingfen/hudonghuiyingqingkuang/zhengwuzixun.html',
                 children: []
               }, {
                 text: '征集调查',
-                src: 'javascript:;',
+                src: '/src/page/zonghepingfen/hudonghuiyingqingkuang/zhengjidiaocha.html',
                 children: []
               }
             ]

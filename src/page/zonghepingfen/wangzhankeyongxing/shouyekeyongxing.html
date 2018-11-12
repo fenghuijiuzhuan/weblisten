@@ -90,67 +90,66 @@ require(['src/config/require.config.js'], function () {
     
     var panelParam = {
       title: '监测分析',
-      body: '<div class="main-chart" style="border:2px solid red; width:40%; height:400px; display:inline-block;"><h3>用户访问时长图</h3></div><div style="border:2px solid red;width:47%; height:400px; display:inline-block;" id="main-charts-table"></div>',
+      body: '<div class="main-chart" style=" width:40%; height:400px; display:inline-block;"><h3>用户访问时长图</h3></div><div style="width:47%; height:400px; display:inline-block;" id="main-charts-table"><div></div></div>',
     }
     panel.create(content, panelParam, function (dom) {
     	var div = dom.find('.main-chart')
      	div.height(400);
       
     	 var myChart1 = ec.init(div[0]);
-                // 指定图表的配置项和数据
-                var option1 = {
-							    title : {
-							        text: '用户访问时长',
-							      /*  subtext: '纯属虚构',*/
-							        x:'center'
-							    },
-							    tooltip : {
-							        trigger: 'item',
-							        formatter: "{a} <br/>{b} : {c} ({d}%)"
-							    },
-							    legend: {
-							        orient: 'vertical',
-							        left: 'left',
-							        data: ['大于15(s)的访问次数','小于15(s)的访问次数']
-							    },
-							    series : [
-							        {
-							            name: '访问来源',
-							            type: 'pie',
-							            radius : '55%',
-							            center: ['50%', '60%'],
-							            data:[
-							                {value:12, name:'大于15(s)的访问次数'},
-							                {value:160, name:'小于15(s)的访问次数'},							               
-							            ],
-							            itemStyle: {
-							                emphasis: {
-							                    shadowBlur: 10,
-							                    shadowOffsetX:0,
-							                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-							                }
-							            }
-							        }
-    ]
-};
+        // 指定图表的配置项和数据
+        var option1 = {
+          title : {
+              text: '用户访问时长',
+            /*  subtext: '纯属虚构',*/
+              x:'left'
+          },
+          tooltip : {
+              trigger: 'item',
+              formatter: "{a} <br/>{b} : {c} ({d}%)"
+          },
+          legend: {
+              orient: 'vertical',
+              left: 'left',
+              data: ['大于15(s)的访问次数','小于15(s)的访问次数']
+          },
+          series : [
+              {
+                  name: '访问来源',
+                  type: 'pie',
+                  radius : '55%',
+                  center: ['50%', '60%'],
+                  data:[
+                      {value:12, name:'大于15(s)的访问次数'},
+                      {value:160, name:'小于15(s)的访问次数'},							               
+                  ],
+                  itemStyle: {
+                      emphasis: {
+                          shadowBlur: 10,
+                          shadowOffsetX:0,
+                          shadowColor: 'rgba(0, 0, 0, 0.5)'
+                      }
+                  }
+              }
+          ]
+        };
 
- myChart1.setOption(option1);
+        myChart1.setOption(option1);
 
       
-        var div2 = dom.find('#main-charts-table');
+        var div2 = dom.find('#main-charts-table div');
     		layui.use('table', function(){
         var table = layui.table;
-        //第一个实例
         table.render({
           elem: div2,
-          height: 290,
-          url: 'testdata/shouyekeyongxing.json', //数据接口
+          height: 400,
+          url: '/testdata/zonghepingfen/wangzhankeyongxing/shouyekeyongxing.json', //数据接口
           page: true, //开启分页
           cols: [[ //表头
             {field: 'dycount', title: '大于15s的访问次数', width:"10%"},
-            {field: 'zcount', title: '总访问次数', width:"5%", sort: true},
-            {field: 'yccount', title: '异常比例', width:"5%"},
-            {field: 'kfscore', title: '扣分', width:"5%"} 
+            {field: 'zcount', title: '总访问次数',sort: true,width:"20%"},
+            {field: 'yccount', title: '异常比例', width:"20%"},
+            {field: 'kfscore', title: '扣分',width:""}
           ]]
         });
       });
@@ -162,25 +161,6 @@ require(['src/config/require.config.js'], function () {
   
 })
 
-/*最近一周
- * var div3 = dom.find('#main-charts-table');
-    	layui.use('table', function(){
-        var table = layui.table;
-        
-        //第一个实例
-        table.render({
-          elem: div3,
-          height: 290,
-          url: 'testdata/shouyekeyongxing2.json', //数据接口
-          page: true, //开启分页
-          cols: [[ //表头
-            {field: 'nowdate', title: '日期', width:"10%"},
-            {field: 'dycount', title: '大于15s的访问次数', width:"15%", sort: true},
-            {field: 'zcount', title: '总访问次数', width:"5%"},
-            {field: 'percent', title: '占比', width:"5%"},
-            {field: 'kfscore', title: '扣分', width:"5%"} 
-          ]]
-        });*/
 </script>
 </body>
 </html>

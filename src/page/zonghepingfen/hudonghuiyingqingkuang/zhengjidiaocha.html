@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <base href="http://127.0.0.1:5500">
+  <base href="http://127.0.0.1:5500/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
@@ -43,38 +43,31 @@ require(['src/config/require.config.js'], function () {
     var content = bod.find('.wping-bodycontent');
     
     // bread
-    var btnAggr = [
-      {name: 'INDEXAGGR', text: '首页组版'},
-      {name: 'ADD', text: '新闻', color: 'layui-btn-normal'},
-      {name: 'ADD', text: '文件', color: 'layui-btn-normal'},
-      {name: 'ADD', text: '公报', color: 'layui-btn-normal'},
-      {name: 'EDIT', text: '编辑平台'},
-      {name: 'WAIT', text: '待审核', color: 'layui-btn-danger'},
-      {name: 'WAIT', text: '待签发', color: 'layui-btn-danger'},
-      {name: 'DEL', text: '回收站', color: 'layui-btn-primary'},
-      {name: 'RELOAD', text: '', color: 'layui-btn-primary'}
-    ]
-    bread.create(bod, [{title: '全媒体采编',}, {title: '已签发平台',}], btnAggr)
+    bread.create(bod, [{title: '全媒体采编',}, {title: '已签发平台',}])
 
     // search-from
-    search.create(main)
+    // search.create(main)
+    bodytitle.create(content, {title: '征集调查'})
 
 var zdfwpanelParam = {
-      title: '站点访问',
-      body: '<div ><p>及格</p><p>图标</p></div>',
+      title: '当前状态',
+      body: "<div ><center><p style='font-size:22px'></p></center><center><p style='font-size:42px'>-5&nbsp;分</p></center></div>",
     }
     panel.create(content, zdfwpanelParam, function(dom){
     	dom.css({
     		display: 'inline-block',
     		'vertical-align': 'top',
     		width: '30%',
-    		height:'200px'
+    		height:'200px',
+				color:'#fb3f00',
+				//font-size: '18px',
+        //text-align: 'center,
     	})
     })
     
      var kcdpanelParam = {
       title: '考察点',
-      body: '<div><p>首页栏目信息更新情况。如首页仅为网站栏目导航入口，则检查所有二级页面栏目信息的更新情况。</p></div>',
+      body: '<div><p>1.渠道建设情况；<br>2.调查征集活动开展情况。</p></div>',
     }
     panel.create(content, kcdpanelParam, function(dom){
     	dom.css({
@@ -87,7 +80,7 @@ var zdfwpanelParam = {
     
     var kcbzpanelParam = {
       title: '考核标准',
-      body: '<div><p>监测2周，首页栏目无信息更新的，即单项否决。（注：未注明信息发布时间的视为不更新）</p></div>',
+      body: '<div><p>1.未开设栏目的，扣5分；<br>2.开设了栏目，但栏目不可用或监测时间点前1年内未开展调查征集活动的，扣5分；<br>3.开设了栏目且监测时间点前1年内开展了调查征集活动，但开展次数较少的（地方政府及国务院各部门门户网站少于6次，其他政府网站少于3次），扣3分。</p></div>',
     }
     panel.create(content, kcbzpanelParam, function(dom){
     	dom.css({
@@ -99,47 +92,12 @@ var zdfwpanelParam = {
     })
 
 
-
-    var bodyTitleData = {
-      title: '首页更新'
-    }
-    bodytitle.create(content, bodyTitleData)
-
     var panelParam = {
-      title: '标题标题',
+      title: '扣分情况分析',
       body: '<div class="main-chart"></div>',
     }
     panel.create(content, panelParam, function (dom) {
-      var div = dom.find('.main-chart')
-      div.height(400);
-      var myChart = ec.init(div[0]);
-      var option = {
-        tooltip: {
-            show: true
-        },
-        legend: {
-            data:['更新条数']
-        },
-        xAxis : [
-            {
-                type : 'category',
-                data : ["行业新闻","通知公告","党建动态","工信动态","廉政教育"]
-            }
-        ],
-        yAxis : [
-            {
-                type : 'value'
-            }
-        ],
-        series : [
-            {
-                "name":"更新条数",
-                "type":"bar",
-                "data":[5, 5, 7, 3, 8]
-            }
-        ]
-      };
-      myChart.setOption(option);
+     
     })
 
     // table
@@ -155,20 +113,19 @@ var zdfwpanelParam = {
         table.render({
           elem: div,
           height: 312,
-          url: 'testdata/shouyegengxin.json', //数据接口
+          url: '/testdata/zonghepingfen/hudonghuiyingqingkuang/zhengjidiaocha.json', //数据接口
           page: true, //开启分页
           cols: [[ //表头
-            {field: 'id', title: '序号', width:"5%", sort: true, fixed: 'left'},
-            {field: 'time', title: '更新时间', width:"10%", sort: true},
-            {field: 'kind', title: '所属栏目', width:"10%"},
-            {field: 'title', title: '标题', width:""}
-            
+            {field: 'id', title: '序号', width:"10%", sort: true},
+            {field: 'time', title: '互动时间',sort: true,width:"20%"},
+            {field: 'kind', title: '所属栏目', width:"20%", sort: true},
+            {field: 'title', title: '标题',width:""}
           ]]
         });
       });
     })
 
-
+            
   });
   
 })

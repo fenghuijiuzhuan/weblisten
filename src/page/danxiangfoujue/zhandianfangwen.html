@@ -41,29 +41,10 @@ require(['src/config/require.config.js'], function () {
     })
     var main = bod.find('.wping-bodymain');
     var content = bod.find('.wping-bodycontent');
-    
-    // bread
-    var btnAggr = [
-      {name: 'INDEXAGGR', text: '首页组版'},
-      {name: 'ADD', text: '新闻', color: 'layui-btn-normal'},
-      {name: 'ADD', text: '文件', color: 'layui-btn-normal'},
-      {name: 'ADD', text: '公报', color: 'layui-btn-normal'},
-      {name: 'EDIT', text: '编辑平台'},
-      {name: 'WAIT', text: '待审核', color: 'layui-btn-danger'},
-      {name: 'WAIT', text: '待签发', color: 'layui-btn-danger'},
-      {name: 'DEL', text: '回收站', color: 'layui-btn-primary'},
-      {name: 'RELOAD', text: '', color: 'layui-btn-primary'}
-    ]
-    bread.create(bod, [{title: '全媒体采编',}, {title: '已签发平台',}], btnAggr)
-
+    bread.create(bod, [{title: '全媒体采编',}, {title: '已签发平台',}])
     // search-from
-    search.create(main)
-
-    var bodyTitleData = {
-      title: '首页更新'
-    }
-    bodytitle.create(content, bodyTitleData)
-
+    // search.create(main)
+    bodytitle.create(content, {title: '站点访问'})
     
     var zdfwpanelParam = {
       title: '站点访问',
@@ -158,7 +139,7 @@ require(['src/config/require.config.js'], function () {
         table.render({
           elem: div2,
           height: 400,
-          url: 'testdata/yonghufangwenshichang.json', //数据接口
+          url: '/testdata/yonghufangwenshichang.json', //数据接口
           page: true, //开启分页
           cols: [[ //表头
             {field: 'id', title: 'ID', width:"20%", sort: true, fixed: 'left'},
