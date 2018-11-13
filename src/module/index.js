@@ -7,7 +7,6 @@ define([], function() {
         var data = {
           list: json
         }
-        console.log(json)
         layui.use('laytpl', function(){
           var laytpl = layui.laytpl;
           var tpl = laytpl(html);
@@ -44,6 +43,7 @@ define([], function() {
       })
     },
     indexUser: function (param) {// 单个用户
+      console.log(2)
       require(['text!tpl/indexuser.js'], function(html){
         console.log(1)
         var data = {};
@@ -59,18 +59,15 @@ define([], function() {
       })
     },
     fn: function (param) {
-      var h = location.hash;
-      // var reg = new RegExp('(#user)', 'g')
-      if(h.slice(1)=='user'){ 
+      var h = window.location.hash;
+      if(h.slice(1)=='user'){
         this['indexUser'](param)
       }else{
         this['indexAll'](param)
       }
-      // console.log()
-
-
     }
   }
+  
   
   return function (param) {
     func['fn'](param)

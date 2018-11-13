@@ -12,7 +12,6 @@ define(['util/panelpackage'], function(tmp) {
         var laytpl = layui.laytpl;
         var tpl = laytpl(html);
         tpl.render(data, function(result){
-          ele.append()
           var div = $(result).appendTo(ele)
           callback&&callback(div)
         });

@@ -1,37 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <base href="http://127.0.0.1:5500/">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="src/static/css/common/base.css">
-    <link rel="stylesheet" href="frame/layui/css/layui.css"  media="all">
-    <link rel="stylesheet" href="src/static/css/common/comm.css">
-    <!-- <link rel="stylesheet" type="text/css" href="src/static/font/iconfont.css"> -->
-    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_912067_7u2s2dvgjf2.css">
-    <script src="lib/require-2.1.11.min.js"></script>
-    <script src="frame/echarts-2.2.7/dist/echarts.js"></script>
+  <title>Document</title>
+  <script src="/lib/require-2.1.11.min.js"></script>
+  <script src="/frame/echarts-2.2.7/dist/echarts.js"></script>
 </head>
 <body>
-<!-- 哎呀 什么都没有 -->
-
+  <!-- 哎呀 什么都没有 -->
 <script>
-    require(['src/config/require.config.js'], function () {
-
-        require([
-            'jquery',
-            'layui',
-            'body',
-            'bread',
-            'search',
-            'bodytitle',
-            'panel',
-            'echarts/echarts',
-            'echarts/chart/bar',
-            //  '/testdata'
-        ], function ( $1, $2, body, bread, search, bodytitle, panel, ec) {
+require(['/src/config/require.config.js'], function () {
+  require(['/src/js/content_iframe.js', 'echarts/chart/bar'], function (Moo) {
+    var body = Moo.body,
+      bread = Moo.bread,
+      bodytitle = Moo.bodytitle,
+      panel = Moo.panel,
+      ec = Moo.ec;
             // main body
             var bod = body.create().appendTo($('body'));
             bod.eq(1).css({
@@ -57,11 +40,9 @@
                 dom.css({
                     display: 'inline-block',
                     'vertical-align': 'top',
-                    width: '30%',
+                    width: '32%',
                     height:'200px',
-                    color:'#4AC444',
-                    //font-size: '18px',
-                    //text-align: 'center,
+                    marginRight: '1%'
                 })
             })
 
@@ -73,8 +54,9 @@
                 dom.css({
                     display: 'inline-block',
                     'vertical-align': 'top',
-                    width: '30%',
-                    height:'200px'
+                    width: '32%',
+                    height:'200px',
+                    marginRight: '1%'
                 })
             })
 
@@ -86,7 +68,7 @@
                 dom.css({
                     display: 'inline-block',
                     'vertical-align': 'top',
-                    width: '30%',
+                    width: '34%',
                     height:'200px'
                 })
             })
@@ -146,7 +128,7 @@
                     table.render({
                         elem: div,
                         height: 312,
-                        url: 'testdata/shouyegengxin.json', //数据接口
+                        url: '/testdata/zonghepingfen/xinxigengxinqingkuang/shouyegengxin.json', //数据接口
                         page: true, //开启分页
                         cols: [[ //表头
                             {field: 'id', title: '序号', width:"10%", sort: true, fixed: 'left'},
@@ -215,7 +197,7 @@
                     table.render({
                         elem: div,
                         height: 312,
-                        url: '/testdata/lanmugengxin2.json', //数据接口
+                        url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin2.json', //数据接口
                         page: true, //开启分页
                         cols: [[ //表头
                             {field: 'id', title: '序号', width:"10%", sort: true, fixed: 'left'},
@@ -285,7 +267,7 @@
                     table.render({
                         elem: div,
                         height: 312,
-                        url: 'testdata/lanmugengxin3.json', //数据接口
+                        url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin3.json', //数据接口
                         page: true, //开启分页
                         cols: [[ //表头
                             {field: 'id', title: '序号', width:"10%", sort: true, fixed: 'left'},
@@ -356,7 +338,7 @@
                     table.render({
                         elem: div,
                         height: 312,
-                        url: '/testdata/lanmugengxin3.json', //数据接口
+                        url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin3.json', //数据接口
                         page: true, //开启分页
                         cols: [[ //表头
                             {field: 'id', title: '序号', width:"10%", sort: true, fixed: 'left'},

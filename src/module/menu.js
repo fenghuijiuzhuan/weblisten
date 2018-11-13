@@ -9,11 +9,13 @@ define(['util/onloadpage'], function(loadpage) {
         var result = tpl.render(data);
         resultNext(result);
         function resultNext(result){
-          var dom = $(result).appendTo(ele);
-          dom.eq(2).find('a').on('click', function (e) {
+          var dom = $(result).appendTo(ele).eq(2);
+          var aArr = dom.find('a');
+          aArr.on('click', function (e) {
             loadpage(this.href)
             return false;
           })
+          dom.find('a.first:eq(0)').trigger('click').parent('dd').addClass('layui-this');
         }
       })
     })

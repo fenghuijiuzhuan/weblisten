@@ -17,7 +17,7 @@
 .wping-header .layui-nav .layui-nav-item.layui-this a{color: #094AAA;}
 /* header module end */
 /* menu start */
-.layui-side{top: 70px;bottom: 60px;border-right: 1px solid #ddd;border-top: 1px solid #ddd;}
+.layui-side{top: 70px;bottom: 60px;border-right: 1px solid #ddd;border-top: 1px solid #ddd;background-color: #FFF}
 .wping-menu .layui-nav{background-color: #FFF}
 .wping-menu .layui-nav .layui-nav-item a{color: #094AAA;font-weight: bold;font-size: 16px}
 .wping-menu .layui-nav-itemed>a{color: #094AAA!important;font-weight: bold;font-size: 16px}
@@ -25,6 +25,8 @@
 .wping-menu .layui-nav-itemed>a .layui-nav-more{border-bottom-color: #094AAA;border-top-color: transparent}
 .wping-menu .layui-nav .layui-nav-more{border-top-color: #C1C1C1}
 .wping-menu .layui-nav-item{border: 1px solid #ddd;border-top: none}
+.layui-nav-tree .layui-this a{background-color: #094AAA;color: #FFF!important}
+.layui-nav-tree .layui-this a:hover{background-color: #094AAA;color: #333!important}
 .layui-nav-tree .layui-nav-item a:hover{background-color: #EEE}
 .layui-nav-tree .layui-nav-bar{background-color: #094AAA}
 .layui-nav-itemed>.layui-nav-child{background-color: transparent!important;}
@@ -35,10 +37,10 @@
 .layui-nav .layui-nav-item .layui-nav-child dd.layui-nav-itemed{}
 /* menu end */
 /* main start */
-.wping-body{position: fixed;}
+.wping-body{position: ;min-width: 800px;}
 .layui-body{top: 70px;bottom: 60px;background-color: #EcF0F5;}
 .wping-bodymain{margin: 10px 20px;}
-.wping-bodycontent{background-color: #FFFFFF;}
+.wping-bodycontent{}
 /* main end */
 /* breadcrumb start */
 .wping-breadcrumb{height: 45px;line-height: 45px;background-color: #FFFFFF;padding: 0 20px;}
@@ -54,12 +56,14 @@
 .wping-searchform{background-color: #FFFFFF;padding: 12px 20px;border-left: 4px solid #094AAA;}
 /* search end */
 /* panel start */
-.layui-card{background-color: transparent;margin-left: 20px;margin-right: 20px}
-.layui-card-header{background-color: #094AAA;border-radius: 10px 10px 0 0;color: #FFF;font-size: 20px}
+/* .layui-card{background-color: transparent;margin-left: 20px;margin-right: 20px} */
+/* .layui-card-header{background-color: #094AAA;border-radius: 10px 10px 0 0;color: #FFF;font-size: 20px} */
 
 /* panel end */
 /* bodytitle start */
-.wping-bodytitle{border-bottom: 1px solid #ddd;padding: 20px 0;background-color: transparent;}
+.wping-bodytitle{border-bottom: 1px solid #ddd;border-left: 4px solid #094AAA;padding: 20px 0;background-color: #FFFFFF;}
 .wping-bodytitle .layui-card-header{font-size: 22px;color: #094AAA;border-bottom: none;background-color: transparent;}
 /* bodytitle end */
+/* table */
+.layui-table-view{margin: 0}
 

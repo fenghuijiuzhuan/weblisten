@@ -1,40 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <base href="http://127.0.0.1:5500/">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link rel="stylesheet" href="src/static/css/common/base.css">
-  <link rel="stylesheet" href="frame/layui/css/layui.css" media="all">
-  <link rel="stylesheet" href="src/static/css/common/comm.css">
-  <!-- <link rel="stylesheet" type="text/css" href="src/static/font/iconfont.css"> -->
-  <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_912067_7u2s2dvgjf2.css">
-  <script src="lib/require-2.1.11.min.js"></script>
-  <script src="frame/echarts-2.2.7/dist/echarts.js"></script>
+  <script src="/lib/require-2.1.11.min.js"></script>
+  <script src="/frame/echarts-2.2.7/dist/echarts.js"></script>
 </head>
-
 <body>
-		<!-- 哎呀 什么都没有 -->
-
+  <!-- 哎呀 什么都没有 -->
 <script>
-  require(['src/config/require.config.js'], function() {
-
-    require([
-      'jquery',
-      'layui',
-      'body',
-      'bread',
-      'search',
-      'bodytitle',
-      'panel',
-      'echarts/echarts',
-      'echarts/chart/bar',
-      'echarts/chart/pie',
-      //  '/testdata'
-    ], function($1, $2, body, bread, search, bodytitle, panel, ec) {
+require(['/src/config/require.config.js'], function () {
+  require(['/src/js/content_iframe.js', 'echarts/chart/bar', 'echarts/chart/pie'], function (Moo) {
+    var body = Moo.body,
+      bread = Moo.bread,
+      bodytitle = Moo.bodytitle,
+      panel = Moo.panel,
+      ec = Moo.ec;
       // main body
       var bod = body.create().appendTo($('body'));
       bod.eq(1).css({
@@ -50,44 +30,47 @@
       }
       bodytitle.create(content, bodyTitleData)
 
-      var zdfwpanelParam = {
-        title: '扣分情况',
-        body: '<div ><p>-2.1分</p></div>',
-      }
-      panel.create(content, zdfwpanelParam, function(dom) {
-        dom.css({
-          display: 'inline-block',
-          'vertical-align': 'top',
-          width: '30%',
-          height: '200px'
-        })
-      })
+    var panelIBox_1 = {
+      title: '当前扣分情况',
+      body: '<div>-1分</div>'
+    }
+    panel.create(content, panelIBox_1, function (dom) {
+      dom.css({
+    		display: 'inline-block',
+    		'vertical-align': 'top',
+    		width: '32%',
+        height:'200px',
+        marginRight: '1%'
+    	})
+    });
 
-      var kcdpanelParam = {
-        title: '考察点',
-        body: '<div><p>首页及其他页面不能正常访问的链接数量。</p></div>',
-      }
-      panel.create(content, kcdpanelParam, function(dom) {
-        dom.css({
-          display: 'inline-block',
-          'vertical-align': 'top',
-          width: '30%',
-          height: '200px'
-        })
-      })
+    
+     var panelIBox_2 = {
+      title: '考察点',
+      body: '互动回应类栏目长期未回应的情况。'
+    }
+    panel.create(content, panelIBox_2, function(dom){
+    	dom.css({
+    		display: 'inline-block',
+    		'vertical-align': 'top',
+    		width: '32%',
+        height:'200px',
+        marginRight: '1%'
+    	})
+    })
 
-      var kcbzpanelParam = {
-        title: '考核标准',
-        body: '<div><p>1.首页上的链接（包括图片、附件、外部链接等），每发现一个打不开或错误的，扣1分；如首页仅为网站栏目导航入口，则检查所有二级页面上的链接。<br/>2.其他页面的链接（包括图片、附件、外部链接等），每发现一个打不开或错误的，扣0.1分。</p></div>',
-      }
-      panel.create(content, kcbzpanelParam, function(dom) {
-        dom.css({
-          display: 'inline-block',
-          'vertical-align': 'top',
-          width: '30%',
-          height: '200px'
-        })
-      })
+    var panelIBox_3 = {
+      title: '考核标准',
+      body: '监测1周，每天间隔性访问<span style="color: #fb3f00;">20次</span>以上，超过（含）15秒网站仍打不开的次数比例累计超过（含）<span style="color: #fb3f00;">5%</span>，即单项否决。'
+    }
+    panel.create(content, panelIBox_3, function(dom){
+    	dom.css({
+    		display: 'inline-block',
+    		'vertical-align': 'top',
+    		width: '34%',
+        height:'200px'
+    	})
+    })
 
       var panelParam = {
         title: '扣分情况分析',
@@ -144,7 +127,7 @@
           table.render({
             elem: div2,
             url: '/testdata/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing2.json', //数据接口
-            height: 400,
+            height: 'auto',
             cols: [
               [ //表头
                 {field: 'id',title: '序号',width: "10%"}, 

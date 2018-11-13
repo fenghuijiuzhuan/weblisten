@@ -1,37 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <base href="http://127.0.0.1:5500/">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link rel="stylesheet" href="src/static/css/common/base.css">
-  <link rel="stylesheet" href="frame/layui/css/layui.css"  media="all">
-  <link rel="stylesheet" href="src/static/css/common/comm.css">
-  <!-- <link rel="stylesheet" type="text/css" href="src/static/font/iconfont.css"> -->
-  <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_912067_7u2s2dvgjf2.css">
-  <script src="lib/require-2.1.11.min.js"></script>
-  <script src="frame/echarts-2.2.7/dist/echarts.js"></script>
+  <script src="/lib/require-2.1.11.min.js"></script>
+  <script src="/frame/echarts-2.2.7/dist/echarts.js"></script>
 </head>
 <body>
   <!-- 哎呀 什么都没有 -->
-
 <script>
-require(['src/config/require.config.js'], function () {
-
-  require([
-     'jquery',
-     'layui',
-     'body',
-     'bread',
-     'search',
-     'bodytitle',
-     'panel',
-     'echarts/echarts',
-     'echarts/chart/bar',
-    //  '/testdata'
-    ], function ( $1, $2, body, bread, search, bodytitle, panel, ec) {
+require(['/src/config/require.config.js'], function () {
+  require(['/src/js/content_iframe.js', 'echarts/chart/bar'], function (Moo) {
+    var body = Moo.body,
+      bread = Moo.bread,
+      bodytitle = Moo.bodytitle,
+      panel = Moo.panel,
+      ec = Moo.ec;
     // main body
     var bod = body.create().appendTo($('body'));
     bod.eq(1).css({
@@ -49,45 +32,45 @@ require(['src/config/require.config.js'], function () {
     // search.create(main)
     bodytitle.create(content, {title: '互动访谈'})
 
-var zdfwpanelParam = {
-      title: '扣分情况',
-      body: "<div ><center><p style='font-size:22px'></p></center><center><p style='font-size:42px'>-5&nbsp;分</p></center></div>",
+    var panelIBox_1 = {
+      title: '当前扣分情况',
+      body: '<div>-1分</div>'
     }
-    panel.create(content, zdfwpanelParam, function(dom){
-    	dom.css({
+    panel.create(content, panelIBox_1, function (dom) {
+      dom.css({
     		display: 'inline-block',
     		'vertical-align': 'top',
-    		width: '30%',
-    		height:'200px',
-				color:'#fb3f00',
-				//font-size: '18px',
-        //text-align: 'center,
+    		width: '32%',
+        height:'200px',
+        marginRight: '1%'
     	})
-    })
+    });
+
     
-     var kcdpanelParam = {
+    var panelIBox_2 = {
       title: '考察点',
-      body: '<div><p>互动访谈开展情况。</p></div>',
+      body: '互动回应类栏目长期未回应的情况。'
     }
-    panel.create(content, kcdpanelParam, function(dom){
+    panel.create(content, panelIBox_2, function(dom){
     	dom.css({
     		display: 'inline-block',
     		'vertical-align': 'top',
-    		width: '30%',
-    		height:'200px'
+    		width: '32%',
+        height:'200px',
+        marginRight: '1%'
     	})
     })
-    
-    var kcbzpanelParam = {
+
+    var panelIBox_3 = {
       title: '考核标准',
-      body: '<div><p>开设了栏目，但栏目不可用或监测时间点前1年内未开展互动访谈活动的，扣5分。</p></div>',
+      body: '监测1周，每天间隔性访问<span style="color: #fb3f00;">20次</span>以上，超过（含）15秒网站仍打不开的次数比例累计超过（含）<span style="color: #fb3f00;">5%</span>，即单项否决。'
     }
-    panel.create(content, kcbzpanelParam, function(dom){
+    panel.create(content, panelIBox_3, function(dom){
     	dom.css({
     		display: 'inline-block',
     		'vertical-align': 'top',
-    		width: '30%',
-    		height:'200px'
+    		width: '34%',
+        height:'200px'
     	})
     })
 

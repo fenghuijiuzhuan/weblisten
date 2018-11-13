@@ -6,29 +6,28 @@
  html{background-color: #EEEEEE}
 .wping-indexuser{left: 0;bottom: 0;top: 100px;margin: auto;padding: 0 40px;min-width: 1000px;}
 /* left */
-.wping-indexuser .web-info{width: 30%;padding-right: 5%;min-width: 400px;}
+.wping-indexuser .web-info{width: 30%;min-width: 400px;padding: 10px;margin-right: 1%;background-color: #ffffff}
 .wping-indexuser .web-info .name{font-size: 20px;margin-bottom: 20px}
 .wping-indexuser .web-info .name span{font-weight: bold;font-size: 26px;color: #094AAA}
 .wping-indexuser .web-info .domain{font-size: 16px;margin-bottom: 50px;}
-.wping-indexuser .web-info .domain a{color: #094AAA}
 .wping-indexuser .web-info .name i, .wping-indexuser .web-info .domain i{margin-right: 5px}
-.wping-details-row{border-bottom: 1px solid #ddd;padding: 10px 0;font-size: 20px;color: #333333;}
+.wping-indexuser .web-info a{color: #1e9fff;vertical-align: middle;}
+.wping-indexuser .web-info a:hover{color: #094AAA;}
+.wping-details-row{border-bottom: 1px solid #ddd;padding: 10px 0;font-size: 20px;color: #666;}
 .wping-details-row:last-child{border: none}
 .wping-details-row .wping-details-label{width: 170px;text-align: right;float: left;line-height: 30px}
 .wping-details-row .wping-details-block{float: left;line-height: 20px;width: 230px;}
-.wping-details-row .wping-status-i{color: #ffffff;padding: 5px 15px;font-weight: bold;border-radius: 5px;background-color: #094AAA}
-.wping-details-row .wping-status-i.waring{background-color: #Fb3F00;vertical-align: middle}
+.wping-details-row .layui-badge{color: #ffffff;padding: 5px 15px;font-weight: bold;font-size: 14px}
 .wping-details-row .layui-icon{font-size: 30px;vertical-align: middle;}
 .wping-details-row .wping-details-block{color: #666;font-size: 16px}
-.wping-details-row .wping-details-block a:hover{color: #094AAA}
 .wping-details-row .wping-details-block p{margin-top: 10px;line-height: 26px}
 /* right */
 .wping-indexuser .web-entry{font-size: 0;width: 50%;min-width: 400px;overflow: hidden;display: inline-block}
 .wping-indexuser .web-entry .layui-card-body{text-align: center}
-.wping-indexuser .web-entry .layui-card{margin: 0}
-.wping-indexuserentry-item{display: inline-block;font-size: 24px;margin: 0 3%;color: #094AAA;position: relative;}
+/* .wping-indexuser .web-entry .layui-card{margin: 0} */
+.wping-indexuserentry-item{display: inline-block;font-size: 24px;color: #094AAA;position: relative;}
 .wping-indexuserentry-item p{font-size: 16px;color: #666;}
-.wping-indexuser .web-entry .layui-badge{position: absolute;top: 0;right: 0;border: none;font-size: 16px}
+.wping-indexuser .web-entry .layui-badge{position: absolute;top: 0;right: 0;border: none;}
 
 
 /* indexall */
@@ -36,5 +35,7 @@
 .wping-indextable{width: 100%;}
 .wping-indexall .layui-card-header{background-color: transparent;color: #333;border-radius: 2px 2px 0 0;font-size: 14px;font-size: 14px}
 .wping-indexall .layui-card{background-color: #fff}
+.wping-indexall .domain{color: #1e9fff}
+.wping-indexall .domain:hover{color: #094AAA;text-decoration: underline}
 
 

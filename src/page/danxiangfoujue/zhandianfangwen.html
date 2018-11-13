@@ -1,38 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <base href="http://127.0.0.1:5500">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link rel="stylesheet" href="src/static/css/common/base.css">
-  <link rel="stylesheet" href="frame/layui/css/layui.css"  media="all">
-  <link rel="stylesheet" href="src/static/css/common/comm.css">
-  <!-- <link rel="stylesheet" type="text/css" href="src/static/font/iconfont.css"> -->
-  <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_912067_7u2s2dvgjf2.css">
-  <script src="lib/require-2.1.11.min.js"></script>
-  <script src="frame/echarts-2.2.7/dist/echarts.js"></script>
+  <script src="/lib/require-2.1.11.min.js"></script>
+  <script src="/frame/echarts-2.2.7/dist/echarts.js"></script>
 </head>
 <body>
   <!-- 哎呀 什么都没有 -->
-
 <script>
-require(['src/config/require.config.js'], function () {
-
-  require([
-     'jquery',
-     'layui',
-     'body',
-     'bread',
-     'search',
-     'bodytitle',
-     'panel',
-     'echarts/echarts',
-     'echarts/chart/bar',
-     'echarts/chart/pie',
-    ], function ( $1, $2, body, bread, search, bodytitle, panel, ec) {
-    // main body
+require(['/src/config/require.config.js'], function () {
+  require(['/src/js/content_iframe.js', 'echarts/chart/bar', 'echarts/chart/pie'], function (Moo) {
+    var body = Moo.body,
+      bread = Moo.bread,
+      bodytitle = Moo.bodytitle,
+      panel = Moo.panel,
+      ec = Moo.ec;
     var bod = body.create().appendTo($('body'));
     bod.eq(1).css({
       top: 0, 
@@ -45,50 +27,53 @@ require(['src/config/require.config.js'], function () {
     // search-from
     // search.create(main)
     bodytitle.create(content, {title: '站点访问'})
-    
-    var zdfwpanelParam = {
-      title: '站点访问',
-      body: '<div ><p>及格</p><p>图标</p></div>',
+    var panelIBox_1 = {
+      title: '当前站点状态',
+      body: 'yes',
+      isTmp: true,
     }
-    panel.create(content, zdfwpanelParam, function(dom){
-    	dom.css({
+    panel.create(content, panelIBox_1, function (dom) {
+      dom.css({
     		display: 'inline-block',
     		'vertical-align': 'top',
-    		width: '30%',
-    		height:'200px'
+    		width: '32%',
+        height:'200px',
+        marginRight: '1%'
     	})
-    })
+    });
+
     
-     var kcdpanelParam = {
+     var panelIBox_2 = {
       title: '考察点',
-      body: '<div><p>首页打不开的次数占全部监测次数的比例。</p></div>',
+      body: '互动回应类栏目长期未回应的情况。'
     }
-    panel.create(content, kcdpanelParam, function(dom){
+    panel.create(content, panelIBox_2, function(dom){
     	dom.css({
     		display: 'inline-block',
     		'vertical-align': 'top',
-    		width: '30%',
-    		height:'200px'
+    		width: '32%',
+        height:'200px',
+        marginRight: '1%'
     	})
     })
-    
-    var kcbzpanelParam = {
+
+    var panelIBox_3 = {
       title: '考核标准',
-      body: '<div><p>监测1周，每天间隔性访问20次以上，超过（含）15秒网站仍打不开的次数比例累计超过（含）5%，即单项否决。</p></div>',
+      body: '监测1周，每天间隔性访问<span style="color: #fb3f00;">20次</span>以上，超过（含）15秒网站仍打不开的次数比例累计超过（含）<span style="color: #fb3f00;">5%</span>，即单项否决。'
     }
-    panel.create(content, kcbzpanelParam, function(dom){
+    panel.create(content, panelIBox_3, function(dom){
     	dom.css({
     		display: 'inline-block',
     		'vertical-align': 'top',
-    		width: '30%',
-    		height:'200px'
+    		width: '34%',
+        height:'200px'
     	})
     })
     
     
     var bornPieAndExecl = {
       title: '监测分析',
-      body: '<div class="main-chart" style="width:40%; height:400px; display:inline-block;"><h3>用户访问时长图</h3></div><div style="width:47%; height:400px; display:inline-block;vertical-align: top;" id="main-charts-table"><div></div></div>',
+      body: '<div class="main-chart" style="width:60%; height:400px; display:inline-block;"><h3>用户访问时长图</h3></div><div style="width:40%; height:400px; display:inline-block;vertical-align: top;" id="main-charts-table"><div></div></div>',
     }
     panel.create(content, bornPieAndExecl, function (dom) {
     	var div = dom.find('.main-chart')
@@ -138,25 +123,21 @@ require(['src/config/require.config.js'], function () {
         var table = layui.table;
         table.render({
           elem: div2,
-          height: 400,
+          height: 'auto',
           url: '/testdata/danxiangfoujue/yonghufangwenshichang.json', //数据接口
-          page: true, //开启分页
           cols: [[ //表头
-            {field: 'id', title: 'ID', width:"20%", sort: true, fixed: 'left'},
+            // {field: 'id', title: 'ID', width:"20%", sort: true, fixed: 'left'},
             {field: 'title', title: '标题', width:""},
             {field: 'count', title: '次数', width:"20%", sort: true},
-            {field: 'percent', title: '占比', width:"20%"}         
+            {field: 'percent', title: '占比', width:"25%"}         
           ]]
         });
       });
-
     })
-
-
-
   });
-  
 })
+
+  
 
 
 </script>

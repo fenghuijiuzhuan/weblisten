@@ -9,17 +9,13 @@ define([], function() {
         var laytpl = layui.laytpl;
         var tpl = laytpl(html);
         var result = tpl.render(data);
-        ele.append($(result))
+        ele.prepend($(result))
         callback&&callback()
       })
 
     })
   }
-
-
-
   return {
     create: bodytitle
   }
-  
 });

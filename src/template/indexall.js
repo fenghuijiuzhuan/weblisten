@@ -16,16 +16,16 @@
                 <tr>
                   <td rowspan="3">检测汇总</td>
                   <td rowspan="3">检测网站数：<span class="fweight" style="color: #ff5722">128</span></td>
-                  <td>考核达标网站数：<span class="fweight" style="color: #ff5722">99</span></td>
-                  <td>达标率：<span class="fweight" style="color: #ff5722">66%</span></td>
+                  <td>考核合格网站数：<span class="fweight" style="color: #ff5722">99</span></td>
+                  <td>合格率：<span class="fweight" style="color: #ff5722">66%</span></td>
                 </tr>
                 <tr>
                   <td>考核满分网站：<span class="fweight" style="color: #ff5722">0</span></td>
-                  <td>达标率：<span class="fweight" style="color: #ff5722">0%</span></td>
+                  <td>合格率：<span class="fweight" style="color: #ff5722">0%</span></td>
                 </tr>
                 <tr>
-                  <td>单项否决不达标：<span class="fweight" style="color: #ff5722">6</span></td>
-                  <td>达标率：<span class="fweight" style="color: #ff5722">6%</span></td>
+                  <td>单项否决不合格：<span class="fweight" style="color: #ff5722">6</span></td>
+                  <td>合格率：<span class="fweight" style="color: #ff5722">6%</span></td>
                 </tr>
               </tbody>
             </table>
@@ -55,34 +55,33 @@
                 <tr style="background-color: #{{ item.id%2 ? 'transparent' : 'f2f2f2' }};" >
                   <td rowspan="3">{{ item.id }}</td>
                   <td>{{ item.web_name }}</td>
-                  <td>{{ item.web_src }}</td>
+                  <td><a class="domain" href="{{ item.web_src }}">{{ item.web_src }}</a></td>
                   <td>{{ item.name }}</td>
                   <td>{{ item.tel }}</td>
                   <td>{{ item.email }}</td>
                   <td style="font-size:0;">
                     <a href="javascript:;" class="layui-btn layui-btn-normal">修改</a>
                     <a href="javascript:;" class="layui-btn layui-btn-danger">删除</a>
-                    <a href="javascript:;" class="layui-btn layui-btn-normal">进入子账户</a>
                   </td>
                 </tr>
                 <tr style="background-color: #{{ item.id%2 ? 'transparent' : 'f2f2f2' }};">
                   <td rowspan="2">考核结果</td>
                   <td rowspan="2">
                   {{# if(item.kaohe == "ok"){ }}
-                    <span class="layui-badge" style="font-size: 16px;height: 24px;line-height: 24px;background-color: #4ac444;margin-right: 8px;">达标</span>
+                    <span class="layui-badge" style="font-size: 12px;height: 24px;line-height: 24px;background-color: #4ac444;margin-right: 4px;">合格</span>
                     <i class="layui-icon layui-icon-face-smile" style="font-size: 26px;font-weight: bold;vertical-align: middle; color: #4ac444;"></i>
                   {{# } else { }}
-                    <span class="layui-badge" style="font-size: 16px;height: 24px;line-height: 24px;background-color: #ff5722;margin-right: 8px;">不达标</span>
+                    <span class="layui-badge" style="font-size: 12px;height: 24px;line-height: 24px;background-color: #ff5722;margin-right: 4px;">不合格</span>
                     <i class="layui-icon layui-icon-face-cry" style="font-size: 26px;font-weight: bold;vertical-align: middle; color: #ff5722;"></i>
                   {{# } }}
                   </td>
                   <td>单项否决</td>
                   <td>
                   {{# if(item.danxiang == "ok"){ }}
-                    <span class="layui-badge" style="font-size: 16px;height: 24px;line-height: 24px;background-color: #4ac444;margin-right: 8px;">达标</span>
+                    <span class="layui-badge" style="font-size: 12px;height: 24px;line-height: 24px;background-color: #4ac444;margin-right: 4px;">合格</span>
                     <i class="layui-icon layui-icon-face-smile" style="font-size: 26px;font-weight: bold;vertical-align: middle; color: #4ac444;"></i>
                   {{# } else { }}
-                    <span class="layui-badge" style="font-size: 16px;height: 24px;line-height: 24px;background-color: #ff5722;margin-right: 8px;">不达标</span>
+                    <span class="layui-badge" style="font-size: 12px;height: 24px;line-height: 24px;background-color: #ff5722;margin-right: 4px;">不合格</span>
                     <i class="layui-icon layui-icon-face-cry" style="font-size: 26px;font-weight: bold;vertical-align: middle; color: #ff5722;"></i>
                   {{# } }}
                   </td>

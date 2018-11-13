@@ -1,35 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ch">
 <head>
-  <meta charset="UTF-8">
-  <base href="http://127.0.0.1:5500/">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" href="src/static/css/common/base.css">
-  <link rel="stylesheet" href="frame/layui/css/layui.css"  media="all">
-  <link rel="stylesheet" href="src/static/font-awesome-4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="src/static/css/common/comm.css">
-  <link rel="stylesheet" href="src/static/css/index.css">
-  <!-- <link rel="stylesheet" type="text/css" href="src/static/font/iconfont.css"> -->
-  <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_912067_sdzsqkthgn8.css">
-  <script src="lib/require-2.1.11.min.js"></script>
+  <script src="/lib/require-2.1.11.min.js" data-main="/src/js/app.js"></script>
 </head>
 <body>
   <!-- 哎呀，还是什么都没有 -->
-<script>
-require(['src/config/require.config.js'], function () {
-  require(['header', 'panel', 'index'], function (header, panel, index) {
-    // header
-    header.create($('body'), {'router': 'index'})
-
-    var h = window.location.href;
-    // 执行
-    index()
-    console.log(index)
-  });
-})
-
-</script>
 </body>
 </html>

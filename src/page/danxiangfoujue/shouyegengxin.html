@@ -1,37 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <base href="http://127.0.0.1:5500">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link rel="stylesheet" href="src/static/css/common/base.css">
-  <link rel="stylesheet" href="frame/layui/css/layui.css"  media="all">
-  <link rel="stylesheet" href="src/static/css/common/comm.css">
-  <!-- <link rel="stylesheet" type="text/css" href="src/static/font/iconfont.css"> -->
-  <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_912067_7u2s2dvgjf2.css">
-  <script src="lib/require-2.1.11.min.js"></script>
-  <script src="frame/echarts-2.2.7/dist/echarts.js"></script>
+  <script src="/lib/require-2.1.11.min.js"></script>
+  <script src="/frame/echarts-2.2.7/dist/echarts.js"></script>
 </head>
 <body>
   <!-- 哎呀 什么都没有 -->
-
 <script>
-require(['src/config/require.config.js'], function () {
-
-  require([
-     'jquery',
-     'layui',
-     'body',
-     'bread',
-     'search',
-     'bodytitle',
-     'panel',
-     'echarts/echarts',
-     'echarts/chart/bar',
-    //  '/testdata'
-    ], function ( $1, $2, body, bread, search, bodytitle, panel, ec) {
+require(['/src/config/require.config.js'], function () {
+  require(['/src/js/content_iframe.js', 'echarts/chart/bar', 'echarts/chart/pie'], function (Moo) {
+    var body = Moo.body,
+      bread = Moo.bread,
+      bodytitle = Moo.bodytitle,
+      panel = Moo.panel,
+      ec = Moo.ec;
     // main body
     var bod = body.create().appendTo($('body'));
     bod.eq(1).css({
@@ -48,64 +31,88 @@ require(['src/config/require.config.js'], function () {
     // search.create(main)
     bodytitle.create(content, {title: '首页更新'})
 
-var zdfwpanelParam = {
-      title: '站点访问',
-      body: '<div ><p>及格</p><p>图标</p></div>',
+    var panelIBox_1 = {
+      title: '首页监测状态',
+      body: 'yes',
+      isTmp: true,
     }
-    panel.create(content, zdfwpanelParam, function(dom){
-    	dom.css({
+    panel.create(content, panelIBox_1, function (dom) {
+      dom.css({
     		display: 'inline-block',
     		'vertical-align': 'top',
-    		width: '30%',
-    		height:'200px'
+    		width: '32%',
+        height:'200px',
+        marginRight: '1%'
     	})
-    })
+    });
+
     
-     var kcdpanelParam = {
+     var panelIBox_2 = {
       title: '考察点',
-      body: '<div><p>首页栏目信息更新情况。如首页仅为网站栏目导航入口，则检查所有二级页面栏目信息的更新情况。</p></div>',
+      body: '首页栏目信息更新情况。如首页仅为网站栏目导航入口，则检查所有二级页面栏目信息的更新情况。'
     }
-    panel.create(content, kcdpanelParam, function(dom){
+    panel.create(content, panelIBox_2, function(dom){
     	dom.css({
     		display: 'inline-block',
     		'vertical-align': 'top',
-    		width: '30%',
-    		height:'200px'
+    		width: '32%',
+        height:'200px',
+        marginRight: '1%'
     	})
     })
-    
-    var kcbzpanelParam = {
+
+    var panelIBox_3 = {
       title: '考核标准',
-      body: '<div><p>监测2周，首页栏目无信息更新的，即单项否决。（注：未注明信息发布时间的视为不更新）</p></div>',
+      body: '监测2周，首页栏目<span style="color: #fb3f00;">无信息更新的</span>，即单项否决。（注：未注明信息发布时间的视为不更新）'
     }
-    panel.create(content, kcbzpanelParam, function(dom){
+    panel.create(content, panelIBox_3, function(dom){
     	dom.css({
     		display: 'inline-block',
     		'vertical-align': 'top',
-    		width: '30%',
-    		height:'200px'
+    		width: '34%',
+        height:'200px'
     	})
     })
 
     var panelParam = {
-      title: '标题标题',
-      body: '<div class="main-chart"></div>',
+      title: '监测分析',
+      body: '<div class="main-chart"></div><div class="main-table"><div></div></div>',
     }
     panel.create(content, panelParam, function (dom) {
       var div = dom.find('.main-chart')
       div.height(400);
       var myChart = ec.init(div[0]);
+      var nameData = [];
+      var countData = [];
+      var urlData = [];
+
+      nameData = ['今日达拉特','通知公告','走进布拉','基层动态','部门动态']
+      countData = [9,2,0,8,9]
+      urlData = ['http://www.dlt.gov.cn/dltzc2015b_80397/xwzx/jrdlt_80488/','http://www.dlt.gov.cn/dltzc2015b_80397/xwzx/tzgg_80491/','http://www.dlt.gov.cn/dltzc2015b_80397/zjdlt_80459/fzdlt/tzzc/','http://www.dlt.gov.cn/dltzc2015b_80397/xwzx/jcdt/','http://www.dlt.gov.cn/dltzc2015b_80397/xwzx/bmdt_80490/']
+
+      // 指定图表的配置项和数据
       var option = {
-        tooltip: {
-            show: true
+        title : {
+            text: '最近2周更新情况',
+            subtext: '',
+            x:'center'
         },
-        legend: {
-            data:['更新条数']
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
         },
         xAxis : [
             {
                 type : 'category',
-                data : ["行业新闻","通知公告","党建动态","工信动态","廉政教育"]
+                data: nameData
             }
         ],
         yAxis : [
@@ -115,27 +122,39 @@ var zdfwpanelParam = {
         ],
         series : [
             {
-                "name":"更新条数",
-                "type":"bar",
-                "data":[5, 5, 7, 3, 8]
+                name:'更新数量',
+                type:'bar',
+                data: countData,
+                barMinHeight: 10,
+                label: {
+                    normal: {
+                        show: true,
+                        position:'top'
+                    }
+                }
             }
         ]
       };
-      myChart.setOption(option);
-    })
 
-    // table
-    var panelTable = {
-      body: '<div class="main-table"></div>'
-    }
-    panel.create(content, panelTable, function (dom) {
-      var div = dom.find('.main-table');
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+
+      myChart.on('click', function (param){
+        var cur=param.dataIndex;
+        var name=param.name;
+        // console.log(cur,name);
+        window.open(urlData[cur]);
+      });
+
+
+      // table
+      var div2 = dom.find('.main-table div');
       layui.use('table', function(){
         var table = layui.table;
         
         //第一个实例
         table.render({
-          elem: div,
+          elem: div2,
           height: 312,
           url: '/testdata/danxiangfoujue/shouyegengxin.json', //数据接口
           page: true, //开启分页
@@ -148,8 +167,8 @@ var zdfwpanelParam = {
           ]]
         });
       });
-    })
 
+    })
 
   });
   
