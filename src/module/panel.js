@@ -1,9 +1,12 @@
-define([], function() {
+define(['util/panelpackage'], function(tmp) {
   'use strict';
 
   function panel(ele, param, callback) {
     require(['text!tpl/panel.js'], function (html) {
-
+      if(param.isTmp){
+        param.body = tmp(param.body);
+        delete param.isTmp
+      }
       var data = param;
       layui.use('laytpl', function(){
         var laytpl = layui.laytpl;

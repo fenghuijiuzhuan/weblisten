@@ -72,11 +72,11 @@ define(['util/onloadpage'], function(loadpage) {
             children: [
               {
                 text: '首页更新',
-                src: 'javascript:;',
+                src: '/src/page/zonghepingfen/xinxigengxinqingkuang/shouyegengxin.html',
                 children: []
               }, {
                 text: '栏目更新',
-                src: 'javascript:;',
+                src: '/src/page/zonghepingfen/xinxigengxinqingkuang/lanmugengxin.html',
                 children: []
               }
             ]
