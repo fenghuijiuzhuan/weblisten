@@ -91,11 +91,6 @@ require(['/src/config/require.config.js'], function () {
             trigger: 'item',
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
-        legend: {
-            orient: 'vertical',
-            // left: 'right',
-            data: ['大于15(s)的访问次数','小于15(s)的访问次数']
-        },
         series : [
             {
                 name: '访问来源',
@@ -114,7 +109,8 @@ require(['/src/config/require.config.js'], function () {
                     }
                 }
             }
-        ]
+        ],
+        color: ['#d53a35', '#334b5c','#ff5722', '#4ac444', '#333']
       };
       myChart1.setOption(option1);
 

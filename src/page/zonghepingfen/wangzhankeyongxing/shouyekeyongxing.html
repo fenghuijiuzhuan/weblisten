@@ -31,8 +31,9 @@ require(['/src/config/require.config.js'], function () {
     bodytitle.create(content, bodyTitleData)
     
     var panelIBox_1 = {
-      title: '当前扣分情况',
-      body: '<div>-1分</div>'
+      title: '扣分情况',
+      body: 'num:-25',
+      isTmp: true
     }
     panel.create(content, panelIBox_1, function (dom) {
       dom.css({
@@ -47,7 +48,7 @@ require(['/src/config/require.config.js'], function () {
     
      var panelIBox_2 = {
       title: '考察点',
-      body: '互动回应类栏目长期未回应的情况。'
+      body: '首页打不开的次数占全部监测次数的比例。'
     }
     panel.create(content, panelIBox_2, function(dom){
     	dom.css({
@@ -61,7 +62,7 @@ require(['/src/config/require.config.js'], function () {
 
     var panelIBox_3 = {
       title: '考核标准',
-      body: '监测1周，每天间隔性访问<span style="color: #fb3f00;">20次</span>以上，超过（含）15秒网站仍打不开的次数比例累计超过（含）<span style="color: #fb3f00;">5%</span>，即单项否决。'
+      body: '监测1周，每天间隔性访问<span style="color: #fb3f00;">20次</span>以上，超过（含）15秒网站仍打不开的次数比例每<span style="color: #fb3f00;">1%</span>扣<span style="color: #fb3f00;">5分</span>（累计超过（含）5%的，直接列入单项否决）。'
     }
     panel.create(content, panelIBox_3, function(dom){
     	dom.css({
@@ -74,70 +75,88 @@ require(['/src/config/require.config.js'], function () {
     
     
     var panelParam = {
-      title: '监测分析',
-      body: '<div class="main-chart" style=" width:60%; height:400px; display:inline-block;"><h3>用户访问时长图</h3></div><div style="width:40%; height:400px; display:inline-block;" id="main-charts-table"><div></div></div>',
+      title: '扣分情况分析',
+      body: '<div class="main-chart" style=" width:60%; height:400px; display:inline-block;"></div><div style="width:40%; height:400px; display:inline-block;vertical-align: top;" class="main-table-r"><div></div></div><div class="main-table"><div></div></div>',
     }
     panel.create(content, panelParam, function (dom) {
     	var div = dom.find('.main-chart')
      	div.height(400);
       
-    	 var myChart1 = ec.init(div[0]);
-        // 指定图表的配置项和数据
-        var option1 = {
-          title : {
-              text: '用户访问时长',
-            /*  subtext: '纯属虚构',*/
-              x:'left'
-          },
-          tooltip : {
-              trigger: 'item',
-              formatter: "{a} <br/>{b} : {c} ({d}%)"
-          },
-          legend: {
-              orient: 'vertical',
-              left: 'left',
-              data: ['大于15(s)的访问次数','小于15(s)的访问次数']
-          },
-          series : [
-              {
-                  name: '访问来源',
-                  type: 'pie',
-                  radius : '55%',
-                  center: ['50%', '60%'],
-                  data:[
-                      {value:12, name:'大于15(s)的访问次数'},
-                      {value:160, name:'小于15(s)的访问次数'},							               
-                  ],
-                  itemStyle: {
-                      emphasis: {
-                          shadowBlur: 10,
-                          shadowOffsetX:0,
-                          shadowColor: 'rgba(0, 0, 0, 0.5)'
-                      }
-                  }
+    	var myChart1 = ec.init(div[0]);
+      var option1 = {
+        title : {
+          text: '用户访问时长',
+          x:'left'
+        },
+        tooltip : {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        series : [
+          {
+            name: '用户访问时长',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:[
+              {value:12, name:'大于15(s)的访问次数'},
+              {value:160, name:'小于15(s)的访问次数'},							               
+            ],
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX:0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }, normal: { 
+                label: { 
+                  show: true,
+                  formatter: '{b} : {c} ({d}%)'
+                },
+                labelLine: {show:true}
               }
-          ]
-        };
 
-        myChart1.setOption(option1);
+            }
+          }
+        ],
+        color: ['#d53a35', '#334b5c','#ff5722', '#4ac444', '#333']
+      };
+
+      myChart1.setOption(option1);
 
       
-        var div2 = dom.find('#main-charts-table div');
-    		layui.use('table', function(){
+      var div2 = dom.find('.main-table-r div');
+      layui.use('table', function(){
         var table = layui.table;
         table.render({
           elem: div2[0],
-          height: 400,
-          url: '/testdata/zonghepingfen/wangzhankeyongxing/shouyekeyongxing.json', //数据接口
-          page: true, //开启分页
+          url: '/testdata/zonghepingfen/wangzhankeyongxing/shouyekeyongxing.json', 
           cols: [[ //表头
-            {field: 'dycount', title: '大于15s的访问次数', width:"10%"},
+            {field: 'dycount', title: '大于15s的访问次数'},
             {field: 'zcount', title: '总访问次数',sort: true,width:"20%"},
             {field: 'yccount', title: '异常比例', width:"20%"},
-            {field: 'kfscore', title: '扣分',width:""}
+            {field: 'kfscore', title: '扣分',width:"20%"}
           ]]
         });
       });
+
+      var div3 = dom.find('.main-table div');
+      layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+          elem: div3[0],
+          url: '/testdata/zonghepingfen/wangzhankeyongxing/shouyekeyongxing2.json', 
+          cols: [[ //标题栏
+            {field: 'nowdate', align: 'center', title: '日期', width: '25%', rowspan: 2},
+            {align: 'center', title: '最近一周', colspan: 4}
+          ], [
+            {field: 'dycount', align: 'center', title: '大于15s的访问次数', width: ''},
+            {field: 'zcount', align: 'center', title: '总访问次数', width: '15%'},
+            {field: 'yccount', align: 'center', title: '占比（%）', width: '15%'},
+            {field: 'kfscore', align: 'center', title: '扣分', width: '15%'}
+          ]]
+        });
+      })
+
     })
 
 

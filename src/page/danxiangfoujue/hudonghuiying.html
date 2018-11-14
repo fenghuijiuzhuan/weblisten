@@ -34,7 +34,7 @@ require(['/src/config/require.config.js'], function () {
     
 
     var panelIBox_1 = {
-      title: '当前站点状态',
+      title: '当前状态',
       body: 'yes',
       isTmp: true,
     }
@@ -65,7 +65,7 @@ require(['/src/config/require.config.js'], function () {
 
     var panelIBox_3 = {
       title: '考核标准',
-      body: '监测1周，每天间隔性访问<span style="color: #fb3f00;">20次</span>以上，超过（含）15秒网站仍打不开的次数比例累计超过（含）<span style="color: #fb3f00;">5%</span>，即单项否决。'
+      body: '监测时间点前1年内，要求对公众信件、留言及时答复处理的政务咨询类栏目（在线访谈、调查征集、举报投诉类栏目除外）中存在<span style="color: #fb3f00;">超过三个月未回应</span>的现象，即单项否决。'
     }
     panel.create(content, panelIBox_3, function(dom){
     	dom.css({
@@ -143,13 +143,12 @@ require(['/src/config/require.config.js'], function () {
                       }
                   }
               }
-          ]
+          ],
+          color: ['#d53a35', '#334b5c','#ff5722', '#4ac444', '#333']
       };
       myChart.setOption(option);
       
-      var data = [
-        { value: parseInt("1"), name: '超过3个月(回复和未回复)' },
-        { value: parseInt("1"), name: '3个月以内(回复和未回复)' }]
+
       var div2 = dom.find('.main-table div');
       layui.use('table', function(){
         var table = layui.table;

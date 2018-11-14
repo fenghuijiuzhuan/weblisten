@@ -126,10 +126,21 @@ require(['/src/config/require.config.js'], function () {
                 type:'bar',
                 data: countData,
                 barMinHeight: 10,
-                label: {
-                    normal: {
-                        show: true,
-                        position:'top'
+                "barWidth": 30,
+                "markPoint" : {
+                    "data" : [
+                        {"type" : 'max', "name": '最大值'},
+                        {"type" : 'min', "name": '最小值'}
+                    ],
+                    "itemStyle": {
+                      "normal": {
+                        "color": '#c23531'
+                      }
+                    }
+                },
+                "itemStyle":{
+                    "normal":{
+                        "color":'#c23531'
                     }
                 }
             }

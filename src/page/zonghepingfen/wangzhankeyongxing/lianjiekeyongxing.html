@@ -32,7 +32,8 @@ require(['/src/config/require.config.js'], function () {
 
     var panelIBox_1 = {
       title: '当前扣分情况',
-      body: '<div>-1分</div>'
+      body: 'num:-1',
+      isTmp: true
     }
     panel.create(content, panelIBox_1, function (dom) {
       dom.css({
@@ -47,7 +48,7 @@ require(['/src/config/require.config.js'], function () {
     
      var panelIBox_2 = {
       title: '考察点',
-      body: '互动回应类栏目长期未回应的情况。'
+      body: '首页及其他页面不能正常访问的链接数量。'
     }
     panel.create(content, panelIBox_2, function(dom){
     	dom.css({
@@ -58,10 +59,10 @@ require(['/src/config/require.config.js'], function () {
         marginRight: '1%'
     	})
     })
-
+    
     var panelIBox_3 = {
       title: '考核标准',
-      body: '监测1周，每天间隔性访问<span style="color: #fb3f00;">20次</span>以上，超过（含）15秒网站仍打不开的次数比例累计超过（含）<span style="color: #fb3f00;">5%</span>，即单项否决。'
+      body: '<p>1.首页上的链接（包括图片、附件、外部链接等），每发现一个打不开或错误的，扣<span style="color: #fb3f00;">1分</span>；如首页仅为网站栏目导航入口，则检查所有二级页面上的链接。</p><p>2.其他页面的链接（包括图片、附件、外部链接等），每发现一个打不开或错误的，扣<span style="color: #fb3f00;">0.1分</span>。</p>'
     }
     panel.create(content, panelIBox_3, function(dom){
     	dom.css({
@@ -74,27 +75,32 @@ require(['/src/config/require.config.js'], function () {
 
       var panelParam = {
         title: '扣分情况分析',
-        body: '<div><div id="main-chart" style=" width:40%; height:400px; display:inline-block;"><h3>用户访问时长图</h3></div><div style="width:47%; height:400px; display:inline-block;vertical-align: top;" id="main-charts-table"><div></div></div></div>',
+        body: '<div><div class="main-chart" style=" width:60%; height:400px; display:inline-block;vertical-align: top;"></div><div style="width:40%; height:400px; display:inline-block;vertical-align: top;" class="main-table-r"><div></div></div>'+
+          '<div class="main-panel-tab layui-tab" lay-filter="link-tab-type">'+
+            '<ul class="layui-tab-title">'+
+              '<li class="layui-this">全部</li>'+
+              '<li>首页</li>'+
+              '<li>其他页面</li>'+
+            '</ul>'+
+            '<div class="layui-tab-content">'+
+              '<div class="layui-tab-item layui-show main-panel-tab-all"><div class="main-chart" style=" width:60%; height:400px; display:inline-block;vertical-align: top;"></div><div style="width:40%; height:400px; display:inline-block;vertical-align: top;" class="main-table-r"><div></div></div></div>'+
+              '<div class="layui-tab-item main-panel-tab-index"><div class="main-chart" style=" width:60%; height:400px; display:inline-block;vertical-align: top;"></div><div style="width:40%; height:400px; display:inline-block;vertical-align: top;" class="main-table-r"><div></div></div></div>'+
+              '<div class="layui-tab-item main-panel-tab-other"><div class="main-chart" style=" width:60%; height:400px; display:inline-block;vertical-align: top;"></div><div style="width:40%; height:400px; display:inline-block;vertical-align: top;" class="main-table-r"><div></div></div></div>'+
+            '</div>'+
+          '</div>'+
+        '</div><div class="main-table"><div></div></div>',
       }
       panel.create(content, panelParam, function(dom) {
-        var div = dom.find("#main-chart")[0]
-
+        var div = dom.find(".main-chart")[0]
         var myChart1 = ec.init(div);
-        // 指定图表的配置项和数据
         var option1 = {
           title: {
             text: '用户访问时长',
-            /*  subtext: '纯属虚构',*/
             x: 'left'
           },
           tooltip: {
             trigger: 'item',
             formatter: "{a} <br/>{b} : {c} ({d}%)"
-          },
-          legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: ['其他页面', '首页']
           },
           series: [{
             name: '访问来源',
@@ -102,30 +108,36 @@ require(['/src/config/require.config.js'], function () {
             radius: '55%',
             center: ['50%', '60%'],
             data: [{
-              value: 2,
-              name: '其他页面'
-            }, {
-              value: 3,
-              name: '首页'
-            }, ],
+                value: 2,
+                name: '首页'
+              },{
+                value: 1,
+                name: '其他页面'
+            }],
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
                 shadowOffsetX: 0,
                 shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }, normal: { 
+                label: { 
+                  show: true,
+                  formatter: '{b} : {c} ({d}%)'
+                },
+                labelLine: {show:true}
               }
             }
-          }]
+          }],
+          color: ['#d53a35', '#334b5c','#ff5722', '#4ac444', '#333']
         };
-
         myChart1.setOption(option1);
 
-        var div2 = dom.find("#main-charts-table div")[0];
+        var div2 = dom.find(".main-table-r div");
         layui.use('table', function() {
           var table = layui.table;
           //第一个实例
           table.render({
-            elem: div2,
+            elem: div2[0],
             url: '/testdata/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing2.json', //数据接口
             height: 'auto',
             cols: [
@@ -138,55 +150,215 @@ require(['/src/config/require.config.js'], function () {
             ]
           });
         })
-      })
-      
-      
-      var panelParam = {
-        body: '<div id="sy"><div>标题</div></div><div id="qtym"><div>标题</div></div>',
-      }
-      panel.create(content, panelParam, function(dom) {
-        var div3 = dom.find("#sy div")[0]
-        layui.use('table', function() {
-          var table = layui.table;
-          //第一个实例
-          table.render({
-            elem: div3,
-            height: 290,
-            title: '其他页面错误链接列表',
-            url: '/testdata/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing.json', //数据接口
-            page: true, //开启分页
-            cols: [
-              [ //表头序号、更新时间、标题、
-                {field: 'id',title: '序号',width: "5%"}, 
-                {field: 'updatetime',title: '更新时间',width: "10%",sort: true}, 
-                {field: 'type',title: '所属栏目', width: "15%"}, 
-                {field: 'title',title: '标题',width: ""}
-              ]
-            ]
+
+        var div3 = dom.find(".main-panel-tab .layui-tab-content");
+        CreateChartsTable(0)
+        function CreateChartsTable(params) {
+          var swip = {
+            0: function(){
+              var div3_1_1 = div3.find(".main-panel-tab-all .main-chart"),
+                  div3_1_2 = div3.find(".main-panel-tab-all .main-table-r div");
+              var tab_chart_1 = ec.init(div3_1_1[0]);
+              var tab_chart_option_1 = {
+                title: {
+                  text: '用户访问时长',
+                  x: 'left'
+                },
+                tooltip: {
+                  trigger: 'item',
+                  formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                series: [{
+                  name: '访问来源',
+                  type: 'pie',
+                  radius: '55%',
+                  center: ['50%', '60%'],
+                  data: [{
+                      value: 2,
+                      name: '首页'
+                    },{
+                      value: 1,
+                      name: '其他页面'
+                  }],
+                  itemStyle: {
+                    emphasis: {
+                      shadowBlur: 10,
+                      shadowOffsetX: 0,
+                      shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }, normal: { 
+                      label: { 
+                        show: true,
+                        formatter: '{b} : {c} ({d}%)'
+                      },
+                      labelLine: {show:true}
+                    }
+                  }
+                }],
+                color: ['#ff5722', '#4ac444', '#333', '#d53a35', '#334b5c',]
+              };
+              tab_chart_1.setOption(tab_chart_option_1);
+              layui.use('table', function() {
+                var table = layui.table;
+                table.render({
+                  elem: div3_1_2[0],
+                  url: '/testdata/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing2.json', //数据接口
+                  height: 'auto',
+                  cols: [[
+                    {field: 'id',title: '序号',width: "10%"}, 
+                    {field: 'ipagesd',title: '页面',width: "30%"}, 
+                    {field: 'noconlink',title: '链接不可用数',width: "30%",sort: true}, 
+                    {field: 'dfscore',title: '扣分',width: ""}
+                  ]]
+                });
+              })
+            },
+            1: function () {
+              var div3_2_1 = div3.find(".main-panel-tab-index .main-chart"),
+                  div3_2_2 = div3.find(".main-panel-tab-index .main-table-r div");
+              var tab_chart_2 = ec.init(div3_2_1[0]);
+              var tab_chart_option_2 = {
+                title: {
+                  text: '用户访问时长',
+                  x: 'left'
+                },
+                tooltip: {
+                  trigger: 'item',
+                  formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                series: [{
+                  name: '访问来源',
+                  type: 'pie',
+                  radius: '55%',
+                  center: ['50%', '60%'],
+                  data: [{
+                      value: 2,
+                      name: '首页'
+                    },{
+                      value: 1,
+                      name: '其他页面'
+                  }],
+                  itemStyle: {
+                    emphasis: {
+                      shadowBlur: 10,
+                      shadowOffsetX: 0,
+                      shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }, normal: { 
+                      label: { 
+                        show: true,
+                        formatter: '{b} : {c} ({d}%)'
+                      },
+                      labelLine: {show:true}
+                    }
+                  }
+                }],
+                color: ['#4ac444', '#333', '#d53a35', '#334b5c', '#ff5722',]
+              };
+              tab_chart_2.setOption(tab_chart_option_2);
+              layui.use('table', function() {
+                var table = layui.table;
+                table.render({
+                  elem: div3_2_2[0],
+                  url: '/testdata/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing2.json', //数据接口
+                  height: 'auto',
+                  cols: [[
+                    {field: 'id',title: '序号',width: "10%"}, 
+                    {field: 'ipagesd',title: '页面',width: "30%"}, 
+                    {field: 'noconlink',title: '链接不可用数',width: "30%",sort: true}, 
+                    {field: 'dfscore',title: '扣分',width: ""}
+                  ]]
+                });
+              })
+            },
+            2: function () {
+              var div3_3_1 = div3.find(".main-panel-tab-other .main-chart"),
+                  div3_3_2 = div3.find(".main-panel-tab-other .main-table-r div");
+              var tab_chart_3 = ec.init(div3_3_1[0]);
+              var tab_chart_option_3 = {
+                title: {
+                  text: '用户访问时长',
+                  x: 'left'
+                },
+                tooltip: {
+                  trigger: 'item',
+                  formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                series: [{
+                  name: '访问来源',
+                  type: 'pie',
+                  radius: '55%',
+                  center: ['50%', '60%'],
+                  data: [{
+                      value: 2,
+                      name: '首页'
+                    },{
+                      value: 1,
+                      name: '其他页面'
+                  }],
+                  itemStyle: {
+                    emphasis: {
+                      shadowBlur: 10,
+                      shadowOffsetX: 0,
+                      shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }, normal: { 
+                      label: { 
+                        show: true,
+                        formatter: '{b} : {c} ({d}%)'
+                      },
+                      labelLine: {show:true}
+                    }
+                  }
+                }],
+                color: ['#333', '#d53a35', '#334b5c','#ff5722', '#4ac444',]
+              };
+              tab_chart_3.setOption(tab_chart_option_3);
+              layui.use('table', function() {
+                var table = layui.table;
+                table.render({
+                  elem: div3_3_2[0],
+                  url: '/testdata/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing2.json', //数据接口
+                  height: 'auto',
+                  cols: [[
+                    {field: 'id',title: '序号',width: "10%"}, 
+                    {field: 'ipagesd',title: '页面',width: "30%"}, 
+                    {field: 'noconlink',title: '链接不可用数',width: "30%",sort: true}, 
+                    {field: 'dfscore',title: '扣分',width: ""}
+                  ]]
+                });
+              })
+            }
+          }
+          swip[params]();
+        }
+        layui.use('element',function () {
+          var element = layui.element;
+          element.on('tab(link-tab-type)', function(data){
+            var index = data.index;
+            CreateChartsTable(index)
           });
         })
-  
-        var div4 = dom.find("#qtym div")[0]
+        
+        var div4 = dom.find(".main-table")
         layui.use('table', function() {
           var table = layui.table;
           //第一个实例
           table.render({
             elem: div4,
-            height: 290,
             title: '其他页面错误链接列表',
             url: '/testdata/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing2.json', //数据接口
             page: true, //开启分页
-            cols: [
-              [ //表头序号、更新时间、标题、
-                {field: 'id',title: '序号',width: "5%"}, 
-                {field: 'updatetime',title: '更新时间',width: "10%",sort: true}, 
-                {field: 'type', title: '所属栏目',width: "15%"}, 
-                {field: 'title',title: '标题', width: ""}
-              ]
-            ]
+            cols: [[
+              {field: 'id',title: '序号',width: "5%"}, 
+              {field: 'time',title: '发现时间',width: "10%",sort: true}, 
+              {field: 'noconlink', title: '不可用链接的标题或URL',width: "30%"}, 
+              {field: 'type',title: '链接类型', width: "20%"},
+              {field: 'status',title: '错误返回码', width: "10%"},
+              {field: 'home',title: '所在页面', width: ""}
+            ]]
           });
         })
+
       })
+      
     });
 
   })

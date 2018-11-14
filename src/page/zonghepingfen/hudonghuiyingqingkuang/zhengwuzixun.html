@@ -33,8 +33,9 @@ require(['/src/config/require.config.js'], function () {
     bodytitle.create(content, {title: '政务咨询'})
 
     var panelIBox_1 = {
-      title: '当前扣分情况',
-      body: '<div>-1分</div>'
+      title: '扣分情况',
+      body: 'num:-1',
+      isTmp: true
     }
     panel.create(content, panelIBox_1, function (dom) {
       dom.css({
@@ -47,9 +48,9 @@ require(['/src/config/require.config.js'], function () {
     });
 
     
-     var panelIBox_2 = {
+    var panelIBox_2 = {
       title: '考察点',
-      body: '互动回应类栏目长期未回应的情况。'
+      body: '<p>1.渠道建设情况；</p><p>2.栏目使用情况。</p>'
     }
     panel.create(content, panelIBox_2, function(dom){
     	dom.css({
@@ -63,7 +64,8 @@ require(['/src/config/require.config.js'], function () {
 
     var panelIBox_3 = {
       title: '考核标准',
-      body: '监测1周，每天间隔性访问<span style="color: #fb3f00;">20次</span>以上，超过（含）15秒网站仍打不开的次数比例累计超过（含）<span style="color: #fb3f00;">5%</span>，即单项否决。'
+      body: '<p>1.未开设栏目的，扣<span style="color: #fb3f00;">5分</span>；</p><p>2.2.开设了栏目，但监测时间点前1年内栏目中无任何有效信件、留言的，扣<span style="color: #fb3f00;">5分</span>；</p>'
+
     }
     panel.create(content, panelIBox_3, function(dom){
     	dom.css({
@@ -77,26 +79,19 @@ require(['/src/config/require.config.js'], function () {
 
     var panelParam = {
       title: '扣分情况分析',
-      body: '<div class="main-chart"></div>',
+      body: '<div class="main-table"><div></div></div>',
     }
     panel.create(content, panelParam, function (dom) {
-     
-    })
-
-    // table
-    var panelTable = {
-      body: '<div class="main-table"><div></div></div>'
-    }
-    panel.create(content, panelTable, function (dom) {
+      // table
       var div = dom.find('.main-table div');
       layui.use('table', function(){
         var table = layui.table;
 
         table.render({
           elem: div,
-          height: 312,
+          height: 'auto',
           url: '/testdata/zonghepingfen/hudonghuiyingqingkuang/zhengwuzixun.json', //数据接口
-          page: true, //开启分页
+          // page: true, //开启分页
           cols: [[ //表头
             {field: 'id', title: '序号', width:"10%", sort: true},
             {field: 'time', title: '互动时间',sort: true,width:"20%"},
@@ -106,6 +101,7 @@ require(['/src/config/require.config.js'], function () {
         });
       });
     })
+
 
 
   });

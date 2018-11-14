@@ -9,7 +9,7 @@
   <!-- 哎呀 什么都没有 -->
 <script>
 require(['/src/config/require.config.js'], function () {
-  require(['/src/js/content_iframe.js', 'echarts/chart/bar'], function (Moo) {
+  require(['/src/js/content_iframe.js', 'echarts/chart/bar', 'echarts/chart/pie'], function (Moo) {
     var body = Moo.body,
       bread = Moo.bread,
       bodytitle = Moo.bodytitle,
@@ -34,7 +34,8 @@ require(['/src/config/require.config.js'], function () {
 
     var zdfwpanelParam = {
       title: '当前状态',
-      body: '<div class="text-center"><p style="font-size:22px;margin-bottom: 30px;">及格</p><p><i class="layui-icon layui-icon-face-smile" style="font-size: 50px; color: #1E9FFF;"></i></div>',
+      body: 'num:-3',
+      isTmp: true
     }
     panel.create(content, zdfwpanelParam, function(dom){
     	dom.css({
@@ -43,18 +44,13 @@ require(['/src/config/require.config.js'], function () {
     		width: '32%',
         height:'200px',
         marginRight: '1%',
-				color:'#4AC444',
-				//font-size: '18px',
-        //text-align: 'center,
     	})
     })
     
      var kcdpanelParam = {
       title: '考察点',
-      body: '<div><p>1.动态、要闻、通知公告、政策文件等信息长期未更新的栏目数量；</p>' +
-	  '<p>2.网站中应更新但长期未更新的栏目数量；</p>' +
-	  '<p>3.网站中的空白栏目（有栏目无内容）数量。</p>' +
-	  '</div>',
+      body: '<p>1.栏目信息更新是否及时；</p>' +
+	          '<p>2.栏目信息内容是否准确。</p>'
     }
     panel.create(content, kcdpanelParam, function(dom){
     	dom.css({
@@ -65,10 +61,13 @@ require(['/src/config/require.config.js'], function () {
         marginRight: '1%'
     	})
     })
-    
+
     var kcbzpanelParam = {
       title: '考核标准',
-      body: '<div><p>1.监测时间点前2周内的动态、要闻类栏目，以及监测时间点前6个月内的通知公告、政策文件类栏目，累计超过（含）5个未更新；2.网站中应更新但长期未更新的栏目数超过（含）10个；3.空白栏目数量超过（含）5个。上述情况出现任意一种，即单项否决。</p></div>',
+      body: '<p>1.监测时间点前2周内，动态、要闻类信息，每发现<span style="color: #fb3f00;">1个</span>栏目未更新的，扣<span style="color: #fb3f00;">3分</span>；</p>'+
+            '<p>2.监测时间点前6个月内，通知公告、政策文件类信息，每发现<span style="color: #fb3f00;">1个</span>栏目未更新的，扣<span style="color: #fb3f00;">4分</span>；</p>'+
+            '<p>3.监测时间点前1年内，人事、规划计划类信息，每发现<span style="color: #fb3f00;">1个</span>栏目未更新的，扣<span style="color: #fb3f00;">5分</span>；</p>'+
+            '<p>4.机构设置及职能、动态、要闻、通知公告、政策文件、规划计划、人事等信息不准确的，每发现<span style="color: #fb3f00;">1次</span>扣<span style="color: #fb3f00;">1分</span>。</p>'
     }
     panel.create(content, kcbzpanelParam, function(dom){
     	dom.css({
@@ -79,26 +78,108 @@ require(['/src/config/require.config.js'], function () {
     	})
     })
 
-
-    var panelParam = {
-      title: '监测分析',
-      body: '<div class="main-chart"></div>',
+    var panelPart_1 = {
+      title: '扣分情况分析',
+      body: '<div class="main-chart" style="display: inline-block;width: 60%;vertical-align: top;"></div><div class="main-table-r" style="display: inline-block;width: 40%;vertical-align: top;"><div></div></div>'
     }
-    panel.create(content, panelParam, function (dom) {
+    panel.create(content, panelPart_1, function (dom) {
       var div = dom.find('.main-chart')
       div.height(400);
       var myChart = ec.init(div[0]);
+      
       var option = {
-        tooltip: {
-            show: true
+          title: {
+              text: '未更新栏目数量',
+              x: 'left'
+          },
+          tooltip: {
+              trigger: 'item',
+              showDelay: 0,
+              hideDelay: 0,
+              formatter: "{a} <br/>{b} : {c} ({d}%)"
+          },
+          series: [
+              {
+                  name: '未更新栏目数量',
+                  type: 'pie',
+                  radius: '55%',
+                  center: ['50%', '60%'],
+                  data:[
+                      {value:1, name:'动态要闻'},
+                      {value:0, name:'通知公告政策文件类'},
+                      {value:0, name:'人事规划计划类'},
+                      {value:0, name:'信息不准确'},
+                  ],
+                  label : {
+                    normal : {
+                      formatter: '{b}:{c}: ({d}%)',
+                      textStyle : {
+                        fontWeight : 'normal',
+                        fontSize : 15
+                      }
+                    }
+                  }, 
+                  itemStyle: {
+                      emphasis: {
+                          shadowBlur: 10,
+                          shadowOffsetX: 0,
+                          shadowColor: 'rgba(0, 0, 0, 0.5)'
+                      },
+                      normal: { 
+                          label: { 
+                              show: true,
+                              formatter: '{b} : {c} ({d}%)',
+                              textStyle : {
+                                fontWeight : 'normal',
+                                fontSize : 15
+                              }
+                          },
+                          labelLine: {show:true}
+                      }
+                  }
+              }
+          ],
+          color: ['#d53a35', '#ff5722', '#4ac444', '#333']
+      };
+      myChart.setOption(option);
+      
+      var div2 = dom.find('.main-table-r div');
+      layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+          elem: div2,
+          url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin4.json',
+          cols: [[
+            {field: 'title', title: '扣分项目', width:"10%"},
+            {field: 'no', title: '未更新栏目数量', width:"20%"},
+            {field: 'kfen', title: '扣分分数', width:"20%"},
+            {field: 'bl', title: '分数比例',width:""}
+          ]]
+        })
+      })
+    })
+
+    var panelPart_2 = {
+      title: '更新情况分析',
+      body: '<div class="main-chart" style="display: inline-block;width: 60%;vertical-align: top;"></div><div class="main-table-r" style="display: inline-block;width: 40%;vertical-align: top;"><div></div></div><div class="main-table"><div></div></div>'
+    }
+    panel.create(content, panelPart_2, function (dom) {
+      var div = dom.find('.main-chart')
+      div.height(400);
+      var myChart = ec.init(div[0]);
+      
+      var option = {
+        title : {
+          text: '最近2周动态、要闻类栏目更新情况',
         },
-        legend: {
-            data:['最近两周动态要闻更新情况']
+        tooltip: {
+            show: true,
+            trigger: 'axis'
         },
         xAxis : [
             {
                 type : 'category',
-                data : ["行业新闻"," ","通知公告"," ","党建动态"," ","工信动态"," ","廉政教育"," "]
+                data : ["部门动态", "基层动态", "今日头条", "今日达拉", "各镇各部门最新公开", "旗政府最新公开消息"]
             }
         ],
         yAxis : [
@@ -110,254 +191,235 @@ require(['/src/config/require.config.js'], function () {
             {
                 "name":"更新条数",
                 "type":"bar",
-                "data":[5,6, 5,4, 7,8, 3,1, 8,7]
+                "data":[11, 9, 8, 9, 0, 1],
+                "barWidth": 30,
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ],
+                    itemStyle: {
+                      normal: {
+                        color: '#c23531'
+                      }
+                    }
+                },
+                itemStyle:{
+                    normal:{
+                        color:'#c23531'
+                    }
+                }
             }
         ]
       };
       myChart.setOption(option);
-	
-    })
-     
-		 
-		 
-		 
-    // table
-    var panelTable = {
-      body: '<div class="main-table"></div>'
-    }
-    panel.create(content, panelTable, function (dom) {
-      var div = dom.find('.main-table');
+      
+      var div2 = dom.find('.main-table-r div');
       layui.use('table', function(){
         var table = layui.table;
-        
-        //第一个实例
         table.render({
-          elem: div,
-          height: 312,
-          url: '/testdata/zonghepingfen/xinxigengxinqingkuang/shouyegengxin.json', //数据接口
-          page: true, //开启分页
-          cols: [[ //表头
-            {field: 'id', title: '序号', width:"10%", sort: true, fixed: 'left'},
-            {field: 'time', title: '更新时间',sort: true,width:"20%"},
-            {field: 'kind', title: '所属栏目', width:"20%", sort: true},
-            {field: 'title', title: '标题',width:""}
-            
+          elem: div2,
+          url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin3.json',
+          cols: [[
+            {field: 'title', title: '栏目名称', width:"50%"},
+            {field: 'count', title: '更新信息数', width:"25%"},
+            {field: 'bl', title: '占比', width:""},
           ]]
+        })
+      })
+
+      var div3 = dom.find('.main-table div');
+      layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+          elem: div3,
+          url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin2.json', //数据接口
+          page: true,
+          cols: [[
+            {field: 'id', title: '序号', width:'10%'},
+            {field: 'time', title: '更新时间', width: '20%'},
+            {field: 'kind', title: '所属栏目', width:'25%'},
+            {field: 'title', title: '标题', width: ''},
+          ]],
+          limit: 5
+        });
+      });
+
+    })
+
+    var panelPart_3 = {
+      body: '<div class="main-chart" style="display: inline-block;width: 60%;vertical-align: top;"></div><div class="main-table-r" style="display: inline-block;width: 40%;vertical-align: top;"><div></div></div><div class="main-table"><div></div></div>'
+    }
+    panel.create(content, panelPart_3, function (dom) {
+      var div = dom.find('.main-chart')
+      div.height(400);
+      var myChart = ec.init(div[0]);
+      
+      var option = {
+        title : {
+          text: '最近6个月内通知公告、政策文件更新情况',
+        },
+        tooltip: {
+            show: true,
+            trigger: 'axis'
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : ["通知公告", "政府文件", "法律法规", "政策解读"]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                "name":"更新条数",
+                "type":"bar",
+                "data":[11, 9, 8, 9, 0, 1],
+                "barWidth": 30,
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ],
+                    itemStyle: {
+                      normal: {
+                        color: '#c23531'
+                      }
+                    }
+                },
+                itemStyle:{
+                    normal:{
+                        color:'#c23531'
+                    }
+                }
+            }
+        ]
+      };
+      myChart.setOption(option);
+      
+      var div2 = dom.find('.main-table-r div');
+      layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+          elem: div2,
+          url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin3.json',
+          cols: [[
+            {field: 'title', title: '栏目名称', width:"50%"},
+            {field: 'count', title: '更新信息数', width:"25%"},
+            {field: 'bl', title: '占比', width:""},
+          ]]
+        })
+      })
+
+      var div3 = dom.find('.main-table div');
+      layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+          elem: div3,
+          url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin2.json', //数据接口
+          page: true,
+          cols: [[
+            {field: 'id', title: '序号', width:'10%'},
+            {field: 'time', title: '更新时间', width: '20%'},
+            {field: 'kind', title: '所属栏目', width:'25%'},
+            {field: 'title', title: '标题', width: ''},
+          ]],
+          limit: 5
         });
       });
     })
-		
-			var panelParam = {
-			
-				body: '<div class="main-chart2"></div>',
-			}
-			panel.create(content, panelParam, function (dom) {
-				var div = dom.find('.main-chart2')
-				div.height(400);
-				var myChart = ec.init(div[0]);
-				var option = {
-					tooltip: {
-							show: true
-					},
-					legend: {
-							data:['六个月内通知公告，政策文件更新情况']
-					},
-					xAxis : [
-							{
-									type : 'category',
-									data : ["通知公告", "政府文件","法律法规","政策解读"]
-							}
-					],
-					yAxis : [
-							{
-									type : 'value'
-							}
-					],
-					series : [
-							{
-									"name":"更新条数",
-									"type":"bar",
-									"data":[5,7,8,3]
-							}
-					]
-				};
-				myChart.setOption(option);
-		
-			})
-		
-		
-		    
-		     
-		   
-		
-		    // table2
-		    var panelTable = {
-		      body: '<div class="main-table"></div>'
-		    }
-		    panel.create(content, panelTable, function (dom) {
-		      var div = dom.find('.main-table');
-		      layui.use('table', function(){
-		        var table = layui.table;
-		        
-		        //第二个实例
-		        table.render({
-		          elem: div,
-		          height: 312,
-		          url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin2.json', //数据接口
-		          page: true, //开启分页
-		          cols: [[ //表头
-                {field: 'id', title: '序号', width:"10%", sort: true, fixed: 'left'},
-                {field: 'time', title: '更新时间',sort: true,width:"20%"},
-                {field: 'kind', title: '所属栏目', width:"20%", sort: true},
-                {field: 'title', title: '标题',width:""}
-		            
-		          ]]
-		        });
-		      });
-		    })
-				
-				//3
-					var panelParam = {
-					
-						body: '<div class="main-chart3"></div>',
-					}
-					panel.create(content, panelParam, function (dom) {
-						var div = dom.find('.main-chart3')
-						div.height(400);
-						var myChart = ec.init(div[0]);
-						var option = {
-							tooltip: {
-									show: true
-							},
-							legend: {
-									data:['一年内人事信息，规划计划更新情况']
-							},
-							xAxis : [
-									{
-											type : 'category',
-											data : ["招考信息", "人事任免","发展规划","工作计划","政府工作报告","干部选拔","征集调查"]
-									}
-							],
-							yAxis : [
-									{
-											type : 'value'
-									}
-							],
-							series : [
-									{
-											"name":"更新条数",
-											"type":"bar",
-											"data":[9,5,7,6,8,9,3]
-									}
-							]
-						};
-						myChart.setOption(option);
-				
-					})
-				
-				
-						
-						
-					
-				
-						// table3
-						var panelTable = {
-							body: '<div class="main-table"></div>'
-						}
-						panel.create(content, panelTable, function (dom) {
-							var div = dom.find('.main-table');
-							layui.use('table', function(){
-								var table = layui.table;
-								
-								//第三个实例
-								table.render({
-									elem: div,
-									height: 312,
-									url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin3.json', //数据接口
-									page: true, //开启分页
-									cols: [[ //表头
-                    {field: 'id', title: '序号', width:"10%", sort: true, fixed: 'left'},
-                    {field: 'time', title: '更新时间',sort: true,width:"20%"},
-                    {field: 'kind', title: '所属栏目', width:"20%", sort: true},
-                    {field: 'title', title: '标题',width:""}
-										
-									]]
-								});
-							});
-						})
-						
-						
-      //4
-      	var panelParam = {
-      	
-      		body: '<div class="main-chart4"></div>',
-      	}
-      	panel.create(content, panelParam, function (dom) {
-      		var div = dom.find('.main-chart4')
-      		div.height(400);
-      		var myChart = ec.init(div[0]);
-      		var option = {
-      			tooltip: {
-      					show: true
-      			},
-      			legend: {
-      					data:['最近一年应更新更新情况']
-      			},
-      			xAxis : [
-      					{
-      							type : 'category',
-      							data : ["阳光教育", "","统计分析","","就业创业","","统计数据","","安全生产","","保障性住房","","土地征收","","交易信息","","质量监管","",]
-      					}
-      			],
-      			yAxis : [
-      					{
-      							type : 'value'
-      					}
-      			],
-      			series : [
-      					{
-      							"name":"更新条数",
-      							"type":"bar",
-      							"data":[4,6,9,5,4,7,6,7,8,8,9,9,3,7,6,6,7,9]
-      					}
-      			]
-      		};
-      		myChart.setOption(option);
+
+    var panelPart_4 = {
+      title: '更新情况分析',
+      body: '<div class="main-chart" style="display: inline-block;width: 60%;vertical-align: top;"></div><div class="main-table-r" style="display: inline-block;width: 40%;vertical-align: top;"><div></div></div><div class="main-table"><div></div></div>'
+    }
+    panel.create(content, panelPart_4, function (dom) {
+      var div = dom.find('.main-chart')
+      div.height(400);
+      var myChart = ec.init(div[0]);
       
-      	})
+      var option = {
+        title : {
+          text: '最近一年内人事、规划计划类栏目更新情况',
+        },
+        tooltip: {
+            show: true,
+            trigger: 'axis'
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : ["招考信息", "人事任免", "发展规划", "工作计划", "政府工作报告", "干部选拔", "征集调查"]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                "name":"更新条数",
+                "type":"bar",
+                "data":[11, 9, 8, 9, 0, 1],
+                "barWidth": 30,
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ],
+                    itemStyle: {
+                      normal: {
+                        color: '#c23531'
+                      }
+                    }
+                },
+                itemStyle:{
+                    normal:{
+                        color:'#c23531'
+                    }
+                }
+            }
+        ]
+      };
+      myChart.setOption(option);
       
-      
-      		
-      		
-      	
-      
-        // table3
-        var panelTable = {
-          body: '<div class="main-table"></div>'
-        }
-        panel.create(content, panelTable, function (dom) {
-          var div = dom.find('.main-table');
-          layui.use('table', function(){
-            var table = layui.table;
-            
-            //第三个实例
-            table.render({
-              elem: div,
-              height: 312,
-              url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin3.json', //数据接口
-              page: true, //开启分页
-              cols: [[ //表头
-                {field: 'id', title: '序号', width:"10%", sort: true},
-                {field: 'time', title: '更新时间',sort: true,width:"20%"},
-                {field: 'kind', title: '所属栏目', width:"20%", sort: true},
-                {field: 'title', title: '标题',width:""}
-              ]]
-            });
-          });
+      var div2 = dom.find('.main-table-r div');
+      layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+          elem: div2,
+          url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin6.json',
+          cols: [[
+            {field: 'title', title: '栏目名称', width:"50%"},
+            {field: 'count', title: '更新信息数', width:"25%"},
+            {field: 'bl', title: '占比', width:""},
+          ]]
         })
-			
-			
-			
+      })
+
+      var div3 = dom.find('.main-table div');
+      layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+          elem: div3,
+          url: '/testdata/zonghepingfen/xinxigengxinqingkuang/lanmugengxin2.json', //数据接口
+          page: true,
+          cols: [[
+            {field: 'id', title: '序号', width:'10%'},
+            {field: 'time', title: '更新时间', width: '20%'},
+            {field: 'kind', title: '所属栏目', width:'25%'},
+            {field: 'title', title: '标题', width: ''},
+          ]],
+          limit: 5
+        });
+      });
+    })
+
 
   });
   

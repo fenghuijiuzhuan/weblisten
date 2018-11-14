@@ -34,7 +34,8 @@ require(['/src/config/require.config.js'], function () {
 
     var panelIBox_1 = {
       title: '当前扣分情况',
-      body: '<div>-1分</div>'
+      body: 'num:-5',
+      isTmp: true
     }
     panel.create(content, panelIBox_1, function (dom) {
       dom.css({
@@ -45,11 +46,10 @@ require(['/src/config/require.config.js'], function () {
         marginRight: '1%'
     	})
     });
-
     
      var panelIBox_2 = {
       title: '考察点',
-      body: '互动回应类栏目长期未回应的情况。'
+      body: '<p>1.渠道建设情况；</p><p>2.调查征集活动开展情况。</p>'
     }
     panel.create(content, panelIBox_2, function(dom){
     	dom.css({
@@ -60,10 +60,11 @@ require(['/src/config/require.config.js'], function () {
         marginRight: '1%'
     	})
     })
-
+    
+  
     var panelIBox_3 = {
       title: '考核标准',
-      body: '监测1周，每天间隔性访问<span style="color: #fb3f00;">20次</span>以上，超过（含）15秒网站仍打不开的次数比例累计超过（含）<span style="color: #fb3f00;">5%</span>，即单项否决。'
+      body: '<p>1.未开设栏目的，扣<span style="color: #fb3f00;">5分</span>；</p><p>2.开设了栏目，但栏目不可用或监测时间点前1年内未开展调查征集活动的，扣<span style="color: #fb3f00;">5分</span>；</p><p>3.开设了栏目且监测时间点前1年内开展了调查征集活动，但开展次数较少的（地方政府及国务院各部门门户网站少于6次，其他政府网站少于3次），扣<span style="color: #fb3f00;">5分</span>；</p>'
     }
     panel.create(content, panelIBox_3, function(dom){
     	dom.css({
@@ -75,29 +76,88 @@ require(['/src/config/require.config.js'], function () {
     })
 
 
-    var panelParam = {
+    var bornPieAndExecl = {
       title: '扣分情况分析',
-      body: '<div class="main-chart"></div>',
+      body: '<div class="main-chart" style="width:60%; height:400px; display:inline-block;"><h3>用户访问时长图</h3></div><div style="width:40%; height:400px; display:inline-block;vertical-align: top;" id="main-charts-table"><div></div></div><div class="main-table"></div>',
     }
-    panel.create(content, panelParam, function (dom) {
-     
-    })
+    panel.create(content, bornPieAndExecl, function (dom) {
+    	var div = dom.find('.main-chart')
+     	div.height(400);
+      
+    	var myChart1 = ec.init(div[0]);
+      // 指定图表的配置项和数据
+      var option = {
+        title : {
+          text: '最近一年征集调查互动次数',
+        },
+        tooltip: {
+            show: true,
+            trigger: 'axis'
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : ["征集调查"]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                "name":"更新数量",
+                "type":"bar",
+                "data":[1.0],
+                "barWidth": 30,
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ],
+                    itemStyle: {
+                      normal: {
+                        color: '#c23531'
+                      }
+                    }
+                },
+                itemStyle:{
+                    normal:{
+                        color:'#c23531'
+                    }
+                }
+            }
+        ]
+      };
+      myChart1.setOption(option);
 
-    // table
-    var panelTable = {
-      body: '<div class="main-table"></div>'
-    }
-    panel.create(content, panelTable, function (dom) {
-      var div = dom.find('.main-table');
+      var div2 = dom.find('#main-charts-table div');
+      layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+          elem: div2,
+          height: 'auto',
+          url: '/testdata/zonghepingfen/hudonghuiyingqingkuang/zhengjidiaocha.1.json', //数据接口
+          cols: [[ //表头
+            {field: 'title', title: '开设栏目', width:""},
+            {field: 'count', title: '调查次数', width:"30%", sort: true},
+            {field: 'sub', title: '扣分', width:"35%"}         
+          ]]
+        });
+      });
+
+      // table
+      var div3 = dom.find('.main-table');
       layui.use('table', function(){
         var table = layui.table;
         
         //第一个实例
         table.render({
-          elem: div,
-          height: 312,
+          elem: div3,
+          height: 'auto',
           url: '/testdata/zonghepingfen/hudonghuiyingqingkuang/zhengjidiaocha.json', //数据接口
-          page: true, //开启分页
+          // page: true, //开启分页
           cols: [[ //表头
             {field: 'id', title: '序号', width:"10%", sort: true},
             {field: 'time', title: '互动时间',sort: true,width:"20%"},
@@ -107,8 +167,6 @@ require(['/src/config/require.config.js'], function () {
         });
       });
     })
-
-            
   });
   
 })
