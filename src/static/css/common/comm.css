@@ -67,3 +67,7 @@
 /* table */
 .layui-table-view{margin: 0}
 
+/* wping-tree start */
+.wping-tree{position: absolute;left: 0;top: 0;bottom: 0;margin: auto;width: 190px;border-right: 2px solid #ddd;margin-left: 10px;background-color: #fff}
+/* wping-tree end */
+

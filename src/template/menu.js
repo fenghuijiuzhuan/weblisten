@@ -1,5 +1,5 @@
-<!-- menu start -->
 <div class="wping-menu layui-side">
+<!-- menu start -->
   <div class="layui-side-scroll">
   <ul class="layui-nav layui-nav-tree " lay-filter="wping-menu">
     <!-- 第1级  -->
@@ -83,5 +83,5 @@
     {{#  }); }}
   </ul>
   </div>
-</div>
 <!-- menu end -->
+</div>

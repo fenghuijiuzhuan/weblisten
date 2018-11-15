@@ -1,7 +1,7 @@
 define([], function() {
   function header(ele, data) {
     require(['text!tpl/header.js'], function (html) {
-      data = $.extend(head_list, data)
+      data = $.extend({}, head_list, data)
       // data = data;
       layui.use('laytpl', function(){
         var laytpl = layui.laytpl;
@@ -44,8 +44,11 @@ define([], function() {
         text: '系统设置',
         src: 'sysset',
         children: []
-      }
-      , {
+      }, {
+        text: '权限管理',
+        src: 'power',
+        children: []
+      }, {
         text: '报告中心',
         src: 'baogao',
         children: []

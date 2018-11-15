@@ -2,20 +2,21 @@ define(['util/onloadpage'], function(loadpage) {
   'use strict';
   function menu(ele, data) {
     require(['text!tpl/menu.js'], function (html) {
-      var data = menuList;
+      data = $.extend({}, menuList, data);
       layui.use('laytpl', function(){
         var laytpl = layui.laytpl;
         var tpl = laytpl(html);
         var result = tpl.render(data);
         resultNext(result);
         function resultNext(result){
-          var dom = $(result).appendTo(ele).eq(2);
+          var dom = $(result).appendTo(ele);
           NowMOD.add('menu', dom)
           layui.use('element', function(){
             var element = layui.element;
             element.render('nav')
             element.on('nav(wping-menu)', function () {
-              loadpage(this.href)
+              var hasTree = ($(this).attr('addtree') === 'true')
+              loadpage(this.href, hasTree)
             })
           })
           var aArr = dom.find('a');
@@ -37,22 +38,22 @@ define(['util/onloadpage'], function(loadpage) {
         children: [
           {
             text: '站点访问',
-            src: '/src/page/danxiangfoujue/zhandianfangwen.html',
+            src: '/src/page/kaohepingfen/danxiangfoujue/zhandianfangwen.html',
             children: []
           },
           {
             text: '首页更新',
-            src: '/src/page/danxiangfoujue/shouyegengxin.html',
+            src: '/src/page/kaohepingfen/danxiangfoujue/shouyegengxin.html',
             children: []
           },
           {
             text: '栏目更新',
-            src: '/src/page/danxiangfoujue/lanmugengxin.html',
+            src: '/src/page/kaohepingfen/danxiangfoujue/lanmugengxin.html',
             children: []
           },
           {
             text: '互动回应',
-            src: '/src/page/danxiangfoujue/hudonghuiying.html',
+            src: '/src/page/kaohepingfen/danxiangfoujue/hudonghuiying.html',
             children: []
           }
         ]
@@ -67,11 +68,11 @@ define(['util/onloadpage'], function(loadpage) {
             children: [
               {
                 text: '首页可用性',
-                src: '/src/page/zonghepingfen/wangzhankeyongxing/shouyekeyongxing.html',
+                src: '/src/page/kaohepingfen/zonghepingfen/wangzhankeyongxing/shouyekeyongxing.html',
                 children: []
               }, {
                 text: '链接可用性',
-                src: '/src/page/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing.html',
+                src: '/src/page/kaohepingfen/zonghepingfen/wangzhankeyongxing/lianjiekeyongxing.html',
                 children: []
               }
             ]
@@ -81,11 +82,11 @@ define(['util/onloadpage'], function(loadpage) {
             children: [
               {
                 text: '首页更新',
-                src: '/src/page/zonghepingfen/xinxigengxinqingkuang/shouyegengxin.html',
+                src: '/src/page/kaohepingfen/zonghepingfen/xinxigengxinqingkuang/shouyegengxin.html',
                 children: []
               }, {
                 text: '栏目更新',
-                src: '/src/page/zonghepingfen/xinxigengxinqingkuang/lanmugengxin.html',
+                src: '/src/page/kaohepingfen/zonghepingfen/xinxigengxinqingkuang/lanmugengxin.html',
                 children: []
               }
             ]
@@ -95,15 +96,15 @@ define(['util/onloadpage'], function(loadpage) {
             children: [
               {
                 text: '互动访谈',
-                src: '/src/page/zonghepingfen/hudonghuiyingqingkuang/hudongfangtan.html',
+                src: '/src/page/kaohepingfen/zonghepingfen/hudonghuiyingqingkuang/hudongfangtan.html',
                 children: []
               }, {
                 text: '政务咨询',
-                src: '/src/page/zonghepingfen/hudonghuiyingqingkuang/zhengwuzixun.html',
+                src: '/src/page/kaohepingfen/zonghepingfen/hudonghuiyingqingkuang/zhengwuzixun.html',
                 children: []
               }, {
                 text: '征集调查',
-                src: '/src/page/zonghepingfen/hudonghuiyingqingkuang/zhengjidiaocha.html',
+                src: '/src/page/kaohepingfen/zonghepingfen/hudonghuiyingqingkuang/zhengjidiaocha.html',
                 children: []
               }
             ]
