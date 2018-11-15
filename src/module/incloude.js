@@ -11,7 +11,8 @@ define(['jquery'], function() {
     '<link rel="stylesheet" href="/src/static/css/common/comm.css">'+
     '<link rel="stylesheet" href="/src/static/css/index.css">'+
     '<!-- <link rel="stylesheet" type="text/css" href="/src/static/font/iconfont.css"> -->'+
-    '<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_912067_sdzsqkthgn8.css">';
+    '<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_912067_sdzsqkthgn8.css">'+
+    '<script type="text/javascript" charset="utf-8" src="/src/util/nowmodel.js"></script>';
     // '<script type="text/javascript" charset="utf-8" src="/lib/jquery-1.11.1.min.js"></script>'
     $('head').prepend(tpl);
   }()

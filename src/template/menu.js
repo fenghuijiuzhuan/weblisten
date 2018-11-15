@@ -1,7 +1,7 @@
 <!-- menu start -->
 <div class="wping-menu layui-side">
   <div class="layui-side-scroll">
-  <ul class="layui-nav layui-nav-tree " lay-filter="test">
+  <ul class="layui-nav layui-nav-tree " lay-filter="wping-menu">
     <!-- 第1级  -->
     {{#  layui.each(d.list, function(index, item){ }}
       <li class="layui-nav-item {{ index==0?'layui-nav-itemed':'' }}">

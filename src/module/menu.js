@@ -10,9 +10,16 @@ define(['util/onloadpage'], function(loadpage) {
         resultNext(result);
         function resultNext(result){
           var dom = $(result).appendTo(ele).eq(2);
+          NowMOD.add('menu', dom)
+          layui.use('element', function(){
+            var element = layui.element;
+            element.render('nav')
+            element.on('nav(wping-menu)', function () {
+              loadpage(this.href)
+            })
+          })
           var aArr = dom.find('a');
           aArr.on('click', function (e) {
-            loadpage(this.href)
             return false;
           })
           dom.find('a.first:eq(0)').trigger('click').parent('dd').addClass('layui-this');

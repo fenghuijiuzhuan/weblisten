@@ -12,8 +12,9 @@ define([], function() {
         var laytpl = layui.laytpl;
         var tpl = laytpl(html);
         tpl.render(data, function(result){
-          ele.append($(result))
-        });
+          var dom = $(result).appendTo(ele)
+          NowMOD.add('footer', dom)
+    });
       })
     })
   }

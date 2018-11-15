@@ -1,4 +1,4 @@
-define(['btn_aggr',], function(getBtn) {
+define(['btn_aggr'], function(getBtn) {
   'use strict';
   function bread(ele, arr, btn) {
     require(['text!tpl/bread.js'], function (html) {
@@ -15,12 +15,15 @@ define(['btn_aggr',], function(getBtn) {
       layui.use('laytpl', function(){
         var laytpl = layui.laytpl;
         var tpl = laytpl(html);
-        tpl.render(data, function(result){
-          ele.prepend($(result))
+        var result = tpl.render(data);
+        nextTick(result)
+        function nextTick(dom) {
+          dom = $(dom).prependTo(ele)
           layui.use('element', function(){
             var element = layui.element;
-          });
-        });
+          })
+        }
+        
       })
     })
   }
@@ -28,3 +31,4 @@ define(['btn_aggr',], function(getBtn) {
     'create': bread
   }
 });
+

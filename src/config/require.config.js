@@ -6,7 +6,9 @@ require.config({
     "jquery": '/lib/jquery-1.11.1.min',
     "text":"/lib/text",
     "tpl": '/src/template/',
-    "util": '/src/util'
+    "util": '/src/util',
+    "router": '/src/router/index',
+    // "modstatus": ''
   },
   shim: {
     'header': {

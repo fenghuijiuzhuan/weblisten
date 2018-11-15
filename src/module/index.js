@@ -14,6 +14,7 @@ define([], function() {
           resultNext(result);
           function resultNext(result){
             var dom = $(result).appendTo($('body'));
+            NowMOD.add('index', dom)
             var tablebox = dom.find('#wping-index-table')
             // tablebox.find('#wping-table-body')
 
@@ -43,9 +44,7 @@ define([], function() {
       })
     },
     indexUser: function (param) {// 单个用户
-      console.log(2)
       require(['text!tpl/indexuser.js'], function(html){
-        console.log(1)
         var data = {};
         layui.use('laytpl', function(){
           var laytpl = layui.laytpl;
@@ -54,6 +53,7 @@ define([], function() {
           resultNext(result);
           function resultNext(result){
             var dom = $(result).appendTo($('body'));
+            NowMOD.add('index', dom)
           }
         })
       })
